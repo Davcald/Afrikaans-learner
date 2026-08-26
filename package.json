@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/**/*.test.ts",
+    "test": "tsx --test src/lib/answers.test.ts src/lib/srs/cardDefs.test.ts",
     "content:check": "tsx scripts/validate-content.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
