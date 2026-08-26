@@ -110,6 +110,18 @@ for (const unit of units) {
   }
 }
 
+// Cross-unit duplicate headwords waste teaching slots (warning, not error —
+// occasional deliberate reinforcement is fine).
+const seenAf = new Map<string, string>();
+for (const unit of units) {
+  for (const v of unit.vocab) {
+    const key = v.af.toLowerCase();
+    const prev = seenAf.get(key);
+    if (prev) warnings.push(`duplicate headword "${v.af}" in ${v.id} (also ${prev})`);
+    else seenAf.set(key, v.id);
+  }
+}
+
 const totalVocab = units.reduce((n, u) => n + u.vocab.length, 0);
 const totalPhrases = units.reduce((n, u) => n + u.phrases.length, 0);
 const totalCloze = units.reduce((n, u) => n + u.cloze.length, 0);

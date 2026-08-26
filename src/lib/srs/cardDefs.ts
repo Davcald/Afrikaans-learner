@@ -127,6 +127,7 @@ export function cardDefById(cardId: string): ResolvedCardDef | null {
 export function eligibleNewDefs(
   unit: Unit,
   introduced: ReadonlySet<string>,
+  grammarDone = false,
 ): CardDef[] {
   const children: CardDef[] = [];
   const fresh: CardDef[] = [];
@@ -145,8 +146,8 @@ export function eligibleNewDefs(
         if (introduced.has(`${def.itemId}-prod`)) children.push(def);
         break;
       case "cloze":
-        // Grammar cloze cards unlock with the grammar lesson, handled by
-        // the session engine (they need the lesson context first).
+        // Grammar-exercise cards unlock once the lesson has been read.
+        if (grammarDone) children.push(def);
         break;
     }
   }

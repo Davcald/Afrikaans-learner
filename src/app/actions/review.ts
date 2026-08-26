@@ -144,3 +144,20 @@ export async function completeShadow(
     durationMs: Math.min(Math.max(Math.floor(durationMs) || 0, 0), MAX_DURATION_MS * 5),
   });
 }
+
+/** Non-FSRS practice drills (word bank, listening). Small XP, minutes count. */
+export async function logPractice(
+  kind: "wordbank" | "listening",
+  refId: string,
+  correct: boolean,
+  durationMs: number,
+): Promise<ActivityResult> {
+  const userId = await requireUserId();
+  if (!["wordbank", "listening"].includes(kind)) throw new Error("Bad kind");
+  return recordActivity(userId, {
+    xp: correct ? 2 : 1,
+    kind,
+    refId: refId.slice(0, 64),
+    durationMs: Math.min(Math.max(Math.floor(durationMs) || 0, 0), MAX_DURATION_MS),
+  });
+}
