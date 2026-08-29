@@ -5,10 +5,11 @@ import type { ClozeExercise, Phrase, Unit, VocabItem } from "./types";
 import { unit as u01 } from "./units/u01-greetings";
 import { unit as u02 } from "./units/u02-family";
 import { unit as u03 } from "./units/u03-numbers-time";
+import { unit as u04 } from "./units/u04-food";
 import { unit as u07 } from "./units/u07-town-directions";
 import { unit as u08 } from "./units/u08-shopping";
 
-export const units: Unit[] = [u01, u02, u03, u07, u08].sort(
+export const units: Unit[] = [u01, u02, u03, u04, u07, u08].sort(
   (a, b) => a.week - b.week || a.id.localeCompare(b.id),
 );
 
