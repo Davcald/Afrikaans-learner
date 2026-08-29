@@ -13,8 +13,13 @@ import { unit as u08 } from "./units/u08-shopping";
 import { unit as u09 } from "./units/u09-weather";
 import { unit as u10 } from "./units/u10-work-study";
 import { unit as u11 } from "./units/u11-travel";
+import { unit as u12 } from "./units/u12-health";
+import { unit as u13 } from "./units/u13-past-tense";
+import { unit as u14 } from "./units/u14-future-plans";
 
-export const units: Unit[] = [u01, u02, u03, u04, u05, u06, u07, u08, u09, u10, u11].sort(
+export const units: Unit[] = [
+  u01, u02, u03, u04, u05, u06, u07, u08, u09, u10, u11, u12, u13, u14,
+].sort(
   (a, b) => a.week - b.week || a.id.localeCompare(b.id),
 );
 

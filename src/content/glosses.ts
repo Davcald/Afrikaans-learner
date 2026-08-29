@@ -145,6 +145,10 @@ export const GLOBAL_GLOSSES: Record<string, string> = {
   eish: "eish (oh my)",
   hoor: "hear / okay? (tag)",
   né: "right? / isn't it?",
+  soos: "like / as",
+  dalk: "maybe / perhaps",
+  amper: "almost",
+  graag: "gladly / would love to",
   afrikaans: "Afrikaans (the language)",
   engels: "English",
 };
