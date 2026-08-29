@@ -10,8 +10,11 @@ import { unit as u05 } from "./units/u05-daily-routine";
 import { unit as u06 } from "./units/u06-home";
 import { unit as u07 } from "./units/u07-town-directions";
 import { unit as u08 } from "./units/u08-shopping";
+import { unit as u09 } from "./units/u09-weather";
+import { unit as u10 } from "./units/u10-work-study";
+import { unit as u11 } from "./units/u11-travel";
 
-export const units: Unit[] = [u01, u02, u03, u04, u05, u06, u07, u08].sort(
+export const units: Unit[] = [u01, u02, u03, u04, u05, u06, u07, u08, u09, u10, u11].sort(
   (a, b) => a.week - b.week || a.id.localeCompare(b.id),
 );
 
