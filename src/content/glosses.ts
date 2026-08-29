@@ -149,6 +149,8 @@ export const GLOBAL_GLOSSES: Record<string, string> = {
   dalk: "maybe / perhaps",
   amper: "almost",
   graag: "gladly / would love to",
+  haha: "haha (laughter)",
+  mmm: "mmm",
   afrikaans: "Afrikaans (the language)",
   engels: "English",
 };
