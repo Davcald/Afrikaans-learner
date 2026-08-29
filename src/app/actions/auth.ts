@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db, isDbConfigured } from "@/db";
+import { ensureSchema } from "@/db/ensure";
 import { users, userSettings } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
@@ -48,6 +49,7 @@ export async function signup(
   formData: FormData,
 ): Promise<AuthFormState> {
   if (!isDbConfigured()) return dbNotReady();
+  await ensureSchema();
 
   const parsed = signupSchema.safeParse({
     email: formData.get("email"),
@@ -91,6 +93,7 @@ export async function login(
   formData: FormData,
 ): Promise<AuthFormState> {
   if (!isDbConfigured()) return dbNotReady();
+  await ensureSchema();
 
   const parsed = loginSchema.safeParse({
     email: formData.get("email"),

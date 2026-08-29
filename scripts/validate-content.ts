@@ -94,7 +94,7 @@ for (const unit of units) {
     }
     for (const token of tokenizeLine(line.af)) {
       if (resolveGloss(token, dialogueGlosses, glossary) === null) {
-        const clean = token.toLowerCase().replace(/[.,!?;:"()«»…“”]/g, "");
+        const clean = token.toLowerCase().replace(/[.,!?;:"()«»…“”—–]/g, "");
         if (clean && !/\d/.test(clean)) {
           errors.push(
             `${dw} line ${i + 1}: no gloss for "${token}" — add to line glosses`,

@@ -34,23 +34,20 @@ auth) · installable PWA. Course content lives in the repo as typed data
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in:
-#   DATABASE_URL  — any Postgres (free tier at https://console.neon.tech works great)
-#   AUTH_SECRET   — openssl rand -base64 32
-npm run db:push              # creates the tables
-npm run dev
+cp .env.example .env.local   # set DATABASE_URL (free tier at https://console.neon.tech)
+npm run dev                  # tables are created automatically on first signup
 ```
 
-## Deploy (Vercel + Neon, ~3 minutes)
+## Deploy (Vercel + Neon, ~2 minutes, one step)
 
-1. Import this repo into Vercel.
-2. Add the **Neon** integration from the Vercel Marketplace (free plan) —
-   it injects `DATABASE_URL` automatically. Or create a database at
-   console.neon.tech and set `DATABASE_URL` yourself.
-3. Set `AUTH_SECRET` (Project → Settings → Environment Variables):
-   any long random string, e.g. `openssl rand -base64 32`.
-4. Locally: `npx vercel env pull .env.local && npm run db:push` to create the
-   tables, then redeploy.
+1. In the Vercel project: **Storage → Create Database → Neon** (free plan) —
+   this injects `DATABASE_URL` automatically. Then redeploy (or just push).
+
+That's the only required step. The app creates its own tables on the first
+signup, and sessions are signed with `AUTH_SECRET` if you set one, otherwise
+with a key derived from `DATABASE_URL` (fine for a private group; set a real
+`AUTH_SECRET` — `openssl rand -base64 32` — if you ever rotate or share the
+database credentials).
 
 Note: Neon's free tier autosuspends when idle — the first request after a
 quiet period takes ~half a second longer.

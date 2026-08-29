@@ -1,9 +1,9 @@
 import { GLOBAL_GLOSSES, PROPER_NOUNS } from "./glosses";
 import type { Dialogue, Unit } from "./types";
 
-/** Lowercase and strip surrounding punctuation, keeping apostrophes ('n) and hyphens. */
+/** Lowercase and strip punctuation, keeping apostrophes ('n) and intra-word hyphens (em/en dashes go). */
 export function normalizeToken(raw: string): string {
-  return raw.toLowerCase().replace(/[.,!?;:"()«»…“”]/g, "");
+  return raw.toLowerCase().replace(/[.,!?;:"()«»…“”—–]/g, "");
 }
 
 export function tokenizeLine(af: string): string[] {
