@@ -1,5 +1,7 @@
 # Vlot — learn Afrikaans the way the research says works
 
+**Live at: https://vlot-afrikaans.vercel.app**
+
 **Vlot** (Afrikaans for *fluent*) is a mobile-first web app that gets you from
 zero to conversational Afrikaans in a 16-week arc. It is multi-user: everyone
 signs up with email + password and gets their own progress, streaks, and a
