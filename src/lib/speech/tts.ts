@@ -4,7 +4,7 @@
 
 export interface VoicePick {
   voice: SpeechSynthesisVoice;
-  /** true when we fell back to a Dutch voice (only used if user opts in). */
+  /** true when we fell back to a Dutch voice (no Afrikaans voice installed). */
   approximate: boolean;
 }
 

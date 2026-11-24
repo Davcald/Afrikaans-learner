@@ -7,19 +7,26 @@ zero to conversational Afrikaans in a 16-week arc. It is multi-user: everyone
 signs up with email + password and gets their own progress, streaks, and a
 spot on the shared leaderboard.
 
-## Why it works — the science baked in
+## Built for people who think they're bad at languages
 
-| Research finding | What Vlot does |
+Most language apps quietly assume a good memory and a tolerance for failing.
+Vlot assumes neither.
+
+| What the research says | What Vlot does |
 |---|---|
-| **Spaced repetition (FSRS)** — the modern algorithm behind Anki, ~20–30% fewer reviews than SM-2 for the same retention | Every word becomes up to 3 cards (recognise → produce → use in a sentence), each scheduled per-user by [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs) |
-| **Retrieval practice beats re-reading; production beats recognition** | Typed EN→AF answers with an Afrikaans diacritic keyboard and typo-tolerant grading — not just multiple choice |
-| **Comprehensible input (i+1)** | Every unit ends in a dialogue built from words you already know — tap any word for its meaning |
-| **Output practice** | Word-bank sentence building and translation drills |
-| **Shadowing** improves fluency and pronunciation | Listen-and-repeat-along screens with slow/normal speed (uses your device's Afrikaans voice; best on Android Chrome/Edge) |
-| **High-frequency vocabulary first** | ~1,000 words + 200 phrases across 20 thematic units, highest-value words first |
-| **Consistency beats cramming** | Daily goal ring, timezone-correct streaks, XP, levels and a weekly leaderboard |
-| **Interleaving beats blocking** | One daily session mixes reviews, new words, a grammar bite, reading, listening and speaking |
-| **Grammar drills alone don't build fluency** | Grammar arrives as short "bites" you immediately use in cloze and sentence exercises |
+| **Teach before you test.** Guessing at words you've never seen is discouraging and slow | Every new word is first *shown* — sound, meaning, example — and only then asked |
+| **Keyword mnemonics and cognates** are the most reliable boost for weaker learners | ~900 of the 962 words carry a memory hook: "free word" (same as English), "you half-know this" (hond → hound), or a sound-alike picture |
+| **Successive relearning**: recall a new item ~3 times, spaced out, in the first sitting | New words come two at a time and are recalled three times in the round, with other cards in between; a miss brings the word back a few cards later |
+| **Fade support gradually** (recognise → assemble → produce) | Multiple choice first, then spelling from letter tiles, and free typing only once a word has stuck for days — with a first-letter hint if you're stuck |
+| **Small batches** protect working memory | A session is a ~5-minute round: 5 new words, up to 20 reviews. "Keep going" starts the next one |
+| **Review pile-ups kill motivation** | New words pause automatically while more than 40 reviews are waiting, and a word's recognition card retires once you can produce it |
+| **Spaced repetition (FSRS)** | Every card is scheduled per-user by [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs) |
+| **Hearing the word matters** | Audio plays when a word is taught. Devices with no Afrikaans voice (iPhones) fall back to a Dutch voice rather than silence |
+| **Comprehensible input, output, shadowing** | Each unit still ends in a tap-to-gloss dialogue, with sentence building and listen-and-repeat along the way |
+
+"New words per day" means words: at the default 10 a day the 962-word course
+(plus its 200 phrases) takes about 4 months, at roughly 15–20 minutes a day once reviews build up
+(`npm test` runs a 60-day simulated learner that checks this).
 
 Afrikaans is FSI Category I — the easiest class of language for English
 speakers (no grammatical gender, no verb conjugation). 20–30 focused minutes

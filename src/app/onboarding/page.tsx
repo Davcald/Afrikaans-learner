@@ -65,12 +65,12 @@ export default async function OnboardingPage() {
         <div>
           <p className="mb-2 font-bold text-ink">Daily goal</p>
           <p className="mb-3 text-xs text-muted">
-            20–30 min/day is the sweet spot for a 4-month push.
+            Short and daily beats long and rare. Rounds take about 5 minutes each.
           </p>
           <PillGroup
             name="dailyGoalMinutes"
             choices={[5, 10, 15, 20, 30]}
-            defaultValue={20}
+            defaultValue={10}
             unit="min"
           />
         </div>
@@ -78,7 +78,7 @@ export default async function OnboardingPage() {
         <div>
           <p className="mb-2 font-bold text-ink">New words per day</p>
           <p className="mb-3 text-xs text-muted">
-            10/day ≈ 1,000+ words in 4 months once reviews settle in.
+            10/day covers the whole 1,000-word course in about 4 months. Every word is taught before you are asked it.
           </p>
           <PillGroup
             name="dailyNewCards"

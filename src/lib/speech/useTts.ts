@@ -8,12 +8,19 @@ export interface Tts {
   ready: boolean;
   /** An Afrikaans (or opted-in approximate) voice exists on this device. */
   available: boolean;
+  /**
+   * No Afrikaans voice here, so a Dutch one is standing in. Dutch is the
+   * parent language: close enough to learn from, noticeably off on some
+   * vowels. Far better than silence (iPhones ship no Afrikaans voice).
+   */
+  approximate: boolean;
   speak: (text: string, rate?: number) => void;
 }
 
 export function useTts(baseRate = 1): Tts {
   const [ready, setReady] = useState(false);
   const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
+  const [approximate, setApproximate] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -23,7 +30,9 @@ export function useTts(baseRate = 1): Tts {
     }
     loadVoices().then((voices) => {
       if (cancelled) return;
-      voiceRef.current = pickAfrikaansVoice(voices)?.voice ?? null;
+      const pick = pickAfrikaansVoice(voices, true);
+      voiceRef.current = pick?.voice ?? null;
+      setApproximate(pick?.approximate ?? false);
       setReady(true);
     });
     return () => {
@@ -40,5 +49,10 @@ export function useTts(baseRate = 1): Tts {
     [baseRate],
   );
 
-  return { ready, available: ready && voiceRef.current !== null, speak };
+  return {
+    ready,
+    available: ready && voiceRef.current !== null,
+    approximate,
+    speak,
+  };
 }

@@ -9,34 +9,88 @@ interface GradedBase {
   isNew: boolean;
 }
 
+/** A memory hook shown when a word is taught and again after a miss. */
+export interface HookInfo {
+  kind: "same" | "cognate" | "mnemonic";
+  text: string;
+}
+
+/**
+ * Teaching card: the first time a word or phrase appears it is SHOWN, with
+ * its sound, meaning and a memory hook, before anything is asked about it.
+ */
+export interface IntroItem {
+  kind: "intro";
+  id: string;
+  af: string;
+  en: string;
+  isPhrase: boolean;
+  pron?: string;
+  hook?: HookInfo;
+  emoji?: string;
+  example?: { af: string; en: string };
+  ttsText: string;
+}
+
 /** Self-graded recognition card (AF front → EN back). */
 export interface FlashcardItem extends GradedBase {
   kind: "flashcard";
   front: string; // Afrikaans
   back: string; // English
   pron?: string;
+  hook?: HookInfo;
   example?: { af: string; en: string };
   ttsText?: string;
 }
 
-/** First-exposure multiple choice (auto-graded: right→Good, wrong→Again). */
-export interface ChoiceItem extends GradedBase {
-  kind: "choice";
-  prompt: string; // Afrikaans word
-  options: string[]; // English meanings
+interface ChoiceBody {
+  /** "af-en": see Afrikaans, pick the meaning. "en-af": pick the Afrikaans. */
+  direction: "af-en" | "en-af";
+  prompt: string;
+  options: string[];
   correct: number;
+  /** The Afrikaans / English pair, shown in full once answered. */
+  af: string;
+  en: string;
   pron?: string;
+  hook?: HookInfo;
   example?: { af: string; en: string };
   ttsText?: string;
 }
 
-/** Typed production: EN prompt → type the Afrikaans. */
+/** Multiple choice on a scheduled card (auto-graded: right→Good, wrong→Again). */
+export interface ChoiceItem extends GradedBase, ChoiceBody {
+  kind: "choice";
+}
+
+/**
+ * Extra multiple-choice retrieval that is NOT scheduled: the same-session
+ * repeats that take a brand-new word to "got it three times".
+ */
+export interface DrillItem extends ChoiceBody {
+  kind: "drill";
+  id: string;
+}
+
+/** Letter (single word) or word (phrase) tiles to assemble the answer. */
+export interface TileSet {
+  /** Shuffled tiles, including a couple of decoys. */
+  tiles: string[];
+  /** The tiles that spell the answer, in order. */
+  solution: string[];
+  joiner: "" | " ";
+}
+
+/** Production: EN prompt → produce the Afrikaans (tiles first, typing later). */
 export interface TypeItem extends GradedBase {
   kind: "type";
   promptEn: string;
   answerAf: string;
   accepted: string[];
+  /** Present → assemble from tiles instead of typing (younger cards). */
+  tileSet?: TileSet;
   pron?: string;
+  hook?: HookInfo;
   example?: { af: string; en: string };
   ttsText?: string;
 }
@@ -49,6 +103,8 @@ export interface ClozeItem extends GradedBase {
   accepted: string[];
   en: string;
   options?: string[]; // present → choice mode (includes answer, shuffled)
+  /** Present (and no options) → assemble the missing word from tiles. */
+  tileSet?: TileSet;
   ttsText?: string;
 }
 
@@ -110,6 +166,8 @@ export interface ShadowItem {
 }
 
 export type ExerciseItem =
+  | IntroItem
+  | DrillItem
   | FlashcardItem
   | ChoiceItem
   | TypeItem
@@ -123,8 +181,18 @@ export type ExerciseItem =
 export interface SessionPlan {
   items: ExerciseItem[];
   meta: {
+    /** Reviews in this round / still waiting after it. */
     dueCount: number;
+    dueRemaining: number;
+    /** Brand-new words taught this round. */
     newCount: number;
+    /** New words learned today before this round, and the daily target. */
+    newToday: number;
+    newTarget: number;
+    /** More new words are available right now (daily target not yet hit). */
+    moreNewAvailable: boolean;
+    /** New words paused because too many reviews are waiting. */
+    newOnHold: boolean;
     unitId: string;
     unitTitle: string;
     streak: number;

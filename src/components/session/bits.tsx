@@ -1,7 +1,7 @@
 "use client";
 
 // Small shared pieces for the session player renderers.
-import type { IntervalPreview } from "@/lib/session/types";
+import type { HookInfo } from "@/lib/session/types";
 
 export function SpeakerButton({
   onClick,
@@ -40,36 +40,20 @@ export function SpeakerButton({
   );
 }
 
-const GRADE_STYLES: Record<1 | 2 | 3 | 4, { label: string; cls: string }> = {
-  1: { label: "Again", cls: "bg-danger/20 text-danger border-danger/40" },
-  2: { label: "Hard", cls: "bg-flame/15 text-flame border-flame/40" },
-  3: { label: "Good", cls: "bg-leaf/15 text-leaf border-leaf/40" },
-  4: { label: "Easy", cls: "bg-sky/15 text-sky border-sky/40" },
+const HOOK_LABEL: Record<HookInfo["kind"], string> = {
+  same: "Free word",
+  cognate: "You half-know this",
+  mnemonic: "Memory trick",
 };
 
-export function GradeBar({
-  intervals,
-  onGrade,
-  disabled,
-}: {
-  intervals: IntervalPreview;
-  onGrade: (rating: 1 | 2 | 3 | 4) => void;
-  disabled?: boolean;
-}) {
+/** The memory hook for a word: why it is easy, or a picture to hang it on. */
+export function HookNote({ hook }: { hook: HookInfo }) {
   return (
-    <div className="grid grid-cols-4 gap-2">
-      {([1, 2, 3, 4] as const).map((r) => (
-        <button
-          key={r}
-          type="button"
-          disabled={disabled}
-          onClick={() => onGrade(r)}
-          className={`rounded-xl border px-1 py-3 text-center transition active:scale-95 disabled:opacity-50 ${GRADE_STYLES[r].cls}`}
-        >
-          <span className="block text-sm font-bold">{GRADE_STYLES[r].label}</span>
-          <span className="block text-[11px] opacity-80">{intervals[r]}</span>
-        </button>
-      ))}
+    <div className="rounded-xl border border-sky/30 bg-sky/10 px-3 py-2.5 text-left">
+      <p className="text-[11px] font-bold uppercase tracking-wide text-sky">
+        💡 {HOOK_LABEL[hook.kind]}
+      </p>
+      <p className="mt-0.5 text-sm leading-snug text-ink">{hook.text}</p>
     </div>
   );
 }

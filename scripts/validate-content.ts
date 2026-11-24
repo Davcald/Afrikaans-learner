@@ -4,6 +4,7 @@
  * reader. See src/content/types.ts for the ID stability contract.
  */
 import { units } from "../src/content/registry";
+import { allHooks } from "../src/content/hooks";
 import {
   buildGlossaryUpTo,
   mergedDialogueGlosses,
@@ -121,6 +122,15 @@ for (const unit of units) {
     else seenAf.set(key, v.id);
   }
 }
+
+// Memory hooks must point at real vocab and stay short enough to read at a glance.
+const vocabIds = new Set(units.flatMap((u) => u.vocab.map((v) => v.id)));
+for (const [id, h] of Object.entries(allHooks)) {
+  if (!vocabIds.has(id)) errors.push(`hook for unknown vocab id "${id}"`);
+  if (!h.hook.trim()) errors.push(`empty hook for ${id}`);
+  if (h.hook.length > 130) warnings.push(`long hook (${h.hook.length} chars) for ${id}`);
+}
+console.log(`Memory hooks: ${Object.keys(allHooks).length} of ${vocabIds.size} words.`);
 
 const totalVocab = units.reduce((n, u) => n + u.vocab.length, 0);
 const totalPhrases = units.reduce((n, u) => n + u.phrases.length, 0);

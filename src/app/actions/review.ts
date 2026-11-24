@@ -145,17 +145,24 @@ export async function completeShadow(
   });
 }
 
-/** Non-FSRS practice drills (word bank, listening). Small XP, minutes count. */
+export type PracticeKind = "wordbank" | "listening" | "drill" | "intro";
+
+/**
+ * Unscheduled practice (word bank, listening, same-session drills, teaching
+ * cards). Small XP, and the minutes count toward the daily goal.
+ */
 export async function logPractice(
-  kind: "wordbank" | "listening",
+  kind: PracticeKind,
   refId: string,
   correct: boolean,
   durationMs: number,
 ): Promise<ActivityResult> {
   const userId = await requireUserId();
-  if (!["wordbank", "listening"].includes(kind)) throw new Error("Bad kind");
+  if (!["wordbank", "listening", "drill", "intro"].includes(kind)) {
+    throw new Error("Bad kind");
+  }
   return recordActivity(userId, {
-    xp: correct ? 2 : 1,
+    xp: kind === "intro" ? 0 : correct ? 2 : 1,
     kind,
     refId: refId.slice(0, 64),
     durationMs: Math.min(Math.max(Math.floor(durationMs) || 0, 0), MAX_DURATION_MS),

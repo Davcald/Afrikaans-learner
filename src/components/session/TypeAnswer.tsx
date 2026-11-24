@@ -8,6 +8,7 @@ import {
   DiacriticBar,
   ExampleBlock,
   FeedbackBanner,
+  HookNote,
   PrimaryButton,
   SpeakerButton,
   type Feedback,
@@ -40,9 +41,12 @@ export default function TypeAnswer({
 }: {
   item: TypeItem | ClozeItem;
   tts: Tts;
-  onGrade: (rating: 1 | 2 | 3 | 4) => void;
+  onGrade: (rating: 1 | 2 | 3) => void;
 }) {
   const [value, setValue] = useState("");
+  // Letters revealed by the hint button. A hinted answer still counts as
+  // recalled, but is scheduled a little sooner (never better than "Hard").
+  const [hintLen, setHintLen] = useState(0);
   const [verdict, setVerdict] = useState<Verdict | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const isCloze = item.kind === "cloze";
@@ -127,6 +131,26 @@ export default function TypeAnswer({
               className="w-full rounded-xl border border-border bg-surface px-4 py-3.5 text-lg text-ink placeholder-faint outline-none focus:border-gold"
             />
             <DiacriticBar onInsert={insert} />
+            {hintLen > 0 && (
+              <p className="text-center text-sm text-muted">
+                Starts with{" "}
+                <span className="font-bold tracking-wider text-gold">
+                  {answerDisplay.slice(0, hintLen)}…
+                </span>
+              </p>
+            )}
+            {hintLen < Math.min(3, answerDisplay.length - 1) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setHintLen((n) => n + 1);
+                  inputRef.current?.focus();
+                }}
+                className="self-center text-sm font-semibold text-sky underline-offset-2 active:underline"
+              >
+                {hintLen === 0 ? "Stuck? Show the first letter" : "One more letter"}
+              </button>
+            )}
             <PrimaryButton type="submit" disabled={!value.trim()}>
               Check
             </PrimaryButton>
@@ -153,7 +177,10 @@ export default function TypeAnswer({
                 </p>
               )}
             </div>
-            {!isCloze && item.example && (
+            {!isCloze && verdict === "wrong" && item.hook && (
+              <HookNote hook={item.hook} />
+            )}
+            {!isCloze && verdict !== "wrong" && item.example && (
               <ExampleBlock
                 af={item.example.af}
                 en={item.example.en}
@@ -164,23 +191,15 @@ export default function TypeAnswer({
                 }
               />
             )}
-            <div className="mt-auto flex gap-2">
-              {verdict === "exact" && (
-                <button
-                  type="button"
-                  onClick={() => onGrade(4)}
-                  className="flex-1 rounded-xl border border-sky/40 bg-sky/15 px-4 py-3.5 font-bold text-sky active:scale-[0.98]"
-                >
-                  That was easy
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => onGrade(ratingFor(verdict!))}
-                className="flex-[2] rounded-xl bg-gold px-4 py-3.5 font-bold text-bg active:scale-[0.98]"
+            <div className="mt-auto">
+              <PrimaryButton
+                onClick={() => {
+                  const r = ratingFor(verdict!);
+                  onGrade(r === 3 && hintLen > 0 ? 2 : r);
+                }}
               >
-                Continue
-              </button>
+                {verdict === "wrong" ? "Got it — ask me again soon" : "Continue"}
+              </PrimaryButton>
             </div>
           </div>
         )}
