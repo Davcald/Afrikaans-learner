@@ -15,6 +15,7 @@ import type { ExerciseItem, SessionPlan } from "@/lib/session/types";
 import { useTts } from "@/lib/speech/useTts";
 import Choice from "./Choice";
 import ClozeChoice from "./ClozeChoice";
+import Dictation from "./Dictation";
 import Flashcard from "./Flashcard";
 import Intro from "./Intro";
 import TilesAnswer from "./TilesAnswer";
@@ -42,7 +43,11 @@ interface Toast {
 }
 
 function isSpeechOnly(item: ExerciseItem): boolean {
-  return item.kind === "listening" || item.kind === "shadow";
+  return (
+    item.kind === "listening" ||
+    item.kind === "dictation" ||
+    item.kind === "shadow"
+  );
 }
 
 export default function SessionPlayer({
@@ -397,6 +402,13 @@ export default function SessionPlayer({
           )}
           {item.kind === "listening" && (
             <Listening
+              item={item}
+              tts={tts}
+              onDone={(correct) => handlePractice(entry, "listening", item.id, correct)}
+            />
+          )}
+          {item.kind === "dictation" && (
+            <Dictation
               item={item}
               tts={tts}
               onDone={(correct) => handlePractice(entry, "listening", item.id, correct)}

@@ -58,7 +58,7 @@ export default async function OnboardingPage() {
       <p className="mt-3 text-sm leading-relaxed text-muted">
         Research is unambiguous: <strong className="text-ink">daily consistency beats cramming</strong>.
         Afrikaans is one of the easiest languages for English speakers — a
-        focused daily habit gets you conversational in about 16 weeks.
+        short daily habit gets you conversational in a few months.
       </p>
 
       <form action={completeOnboarding} className="mt-8 flex flex-col gap-7">
@@ -78,7 +78,7 @@ export default async function OnboardingPage() {
         <div>
           <p className="mb-2 font-bold text-ink">New words per day</p>
           <p className="mb-3 text-xs text-muted">
-            10/day covers the whole 1,000-word course in about 4 months. Every word is taught before you are asked it.
+            10/day gets you to 1,000 words in about 3 months and through the full course in about 7. Every word is taught before you are asked it.
           </p>
           <PillGroup
             name="dailyNewCards"

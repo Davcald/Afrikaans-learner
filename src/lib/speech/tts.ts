@@ -49,13 +49,21 @@ export function speakText(
   text: string,
   voice: SpeechSynthesisVoice,
   rate: number,
+  onEnd?: () => void,
 ): void {
-  if (!ttsSupported()) return;
+  if (!ttsSupported()) {
+    onEnd?.();
+    return;
+  }
   const synth = window.speechSynthesis;
   synth.cancel(); // WebKit gets stuck without this
   const u = new SpeechSynthesisUtterance(text);
   u.voice = voice;
   u.lang = voice.lang || "af-ZA";
   u.rate = rate;
+  if (onEnd) {
+    u.onend = onEnd;
+    u.onerror = onEnd;
+  }
   synth.speak(u);
 }

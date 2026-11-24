@@ -86,8 +86,8 @@ export default function SettingsForm({
         </select>
         <p className="mt-1 text-xs text-faint">
           New words pause on their own while more than 40 reviews are
-          waiting, so you can&apos;t bury yourself. 10/day covers the whole
-          course in about 4 months.
+          waiting, so you can&apos;t bury yourself. 10/day reaches 1,000 words
+          in about 3 months.
         </p>
       </div>
 

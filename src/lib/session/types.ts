@@ -128,6 +128,15 @@ export interface ListeningItem {
   correct: number;
 }
 
+/** Dictation: hear a sentence, rebuild it from word tiles (practice, not FSRS). */
+export interface DictationItem {
+  kind: "dictation";
+  id: string;
+  ttsText: string;
+  en: string;
+  tileSet: TileSet;
+}
+
 export interface GrammarItem {
   kind: "grammar";
   unitId: string;
@@ -174,6 +183,7 @@ export type ExerciseItem =
   | ClozeItem
   | WordBankItem
   | ListeningItem
+  | DictationItem
   | GrammarItem
   | ReaderItem
   | ShadowItem;

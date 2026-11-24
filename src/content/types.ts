@@ -102,8 +102,8 @@ export interface Unit {
   id: string; // "u01"
   title: string;
   titleAf: string;
-  week: number; // 1–16
-  cefr: "A1" | "A2" | "B1";
+  week: number; // 1–36
+  cefr: "A1" | "A2" | "B1" | "B2";
   description: string;
   vocab: VocabItem[];
   phrases: Phrase[];

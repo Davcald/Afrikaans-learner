@@ -31,8 +31,8 @@ for (const unit of units) {
   const where = `unit ${unit.id}`;
   if (!/^u\d{2}$/.test(unit.id)) errors.push(`${where}: bad unit id format`);
   uniqueId(unit.id, where);
-  if (unit.week < 1 || unit.week > 16) {
-    errors.push(`${where}: week ${unit.week} out of range 1–16`);
+  if (unit.week < 1 || unit.week > 36) {
+    errors.push(`${where}: week ${unit.week} out of range 1–36`);
   }
 
   for (const v of unit.vocab) {

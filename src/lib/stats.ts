@@ -31,7 +31,8 @@ export interface DashboardStats {
   targetWordsByNow: number;
 }
 
-const PLAN_DAYS = 112; // 16 weeks
+// The reference pace: ten new words a day until the course runs out.
+const PLAN_DAYS = Math.ceil(TOTAL_VOCAB_COUNT / 10);
 
 const VOCAB_REC_RE = /^u\d{2}-v\d+-rec$/;
 

@@ -31,6 +31,7 @@ import { buildReader } from "./reader";
 import type {
   ChoiceItem,
   ClozeItem,
+  DictationItem,
   DrillItem,
   ExerciseItem,
   FlashcardItem,
@@ -484,6 +485,29 @@ function buildListening(
   });
 }
 
+/** Dictation from a known word's example sentence, decoys from the same unit. */
+function buildDictation(
+  unit: Unit,
+  introduced: ReadonlySet<string>,
+  rand: () => number,
+): DictationItem | null {
+  const known = unit.vocab.filter((v) => {
+    const n = v.exampleAf.split(/\s+/).length;
+    return introduced.has(`${v.id}-rec`) && n >= 3 && n <= 8;
+  });
+  if (known.length < 6) return null;
+  const v = known[Math.floor(rand() * known.length)];
+  const tileSet = buildTileSet(v.exampleAf, unit, rand);
+  if (!tileSet) return null;
+  return {
+    kind: "dictation",
+    id: `dict-${v.id}`,
+    ttsText: v.exampleAf,
+    en: v.exampleEn,
+    tileSet,
+  };
+}
+
 // --- ordering ---------------------------------------------------------------
 
 function take<T>(arr: T[], n: number): T[] {
@@ -741,6 +765,8 @@ export function buildPlan(input: PlanInput): SessionPlan {
   // 8) One listening and one sentence-building drill in the back half
   const listening = buildListening(unit, introduced, rand);
   if (listening[0]) insertAtFraction(itemsOut, listening[0], 0.6);
+  const dictation = buildDictation(unit, introduced, rand);
+  if (dictation) insertAtFraction(itemsOut, dictation, 0.45);
   const wordBanks = buildWordBanks(unit, introduced, rand);
   if (wordBanks[0]) insertAtFraction(itemsOut, wordBanks[0], 0.8);
 

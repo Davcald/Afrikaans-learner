@@ -3,7 +3,7 @@
 **Live at: https://vlot-afrikaans.vercel.app**
 
 **Vlot** (Afrikaans for *fluent*) is a mobile-first web app that gets you from
-zero to conversational Afrikaans in a 16-week arc. It is multi-user: everyone
+zero to confident Afrikaans across 40 units and about 2,000 words. It is multi-user: everyone
 signs up with email + password and gets their own progress, streaks, and a
 spot on the shared leaderboard.
 
@@ -15,7 +15,7 @@ Vlot assumes neither.
 | What the research says | What Vlot does |
 |---|---|
 | **Teach before you test.** Guessing at words you've never seen is discouraging and slow | Every new word is first *shown* — sound, meaning, example — and only then asked |
-| **Keyword mnemonics and cognates** are the most reliable boost for weaker learners | ~900 of the 962 words carry a memory hook: "free word" (same as English), "you half-know this" (hond → hound), or a sound-alike picture |
+| **Keyword mnemonics and cognates** are the most reliable boost for weaker learners | most words carry a memory hook: "free word" (same as English), "you half-know this" (hond → hound), or a sound-alike picture |
 | **Successive relearning**: recall a new item ~3 times, spaced out, in the first sitting | New words come two at a time and are recalled three times in the round, with other cards in between; a miss brings the word back a few cards later |
 | **Fade support gradually** (recognise → assemble → produce) | Multiple choice first, then spelling from letter tiles, and free typing only once a word has stuck for days — with a first-letter hint if you're stuck |
 | **Small batches** protect working memory | A session is a ~5-minute round: 5 new words, up to 20 reviews. "Keep going" starts the next one |
@@ -24,13 +24,34 @@ Vlot assumes neither.
 | **Hearing the word matters** | Audio plays when a word is taught. Devices with no Afrikaans voice (iPhones) fall back to a Dutch voice rather than silence |
 | **Comprehensible input, output, shadowing** | Each unit still ends in a tap-to-gloss dialogue, with sentence building and listen-and-repeat along the way |
 
-"New words per day" means words: at the default 10 a day the 962-word course
-(plus its 200 phrases) takes about 4 months, at roughly 15–20 minutes a day once reviews build up
-(`npm test` runs a 60-day simulated learner that checks this).
+"New words per day" means words: at the default 10 a day you reach 1,000
+words in about 3 months and finish the full 40-unit course in about 7
+(`npm test` runs a 60-day simulated learner that checks the pacing).
+
+### Listening
+
+- **Listen tab** — a hands-free loop of sentences built only from words you
+  have met: hear it, a beat to think, see the words and the English, hear it
+  again slower.
+- **Dictation** — in every round: hear a sentence, rebuild it from word tiles.
+- **Recorded audio** — the app plays `public/audio/<key>.mp3` when a clip
+  exists and falls back to the device voice when it doesn't. Generate clips
+  for the whole course with:
+
+  ```bash
+  npx tsx scripts/audio/export-texts.ts > /tmp/texts.json
+  # natural neural voices; fits inside Azure's free monthly allowance
+  AZURE_SPEECH_KEY=… AZURE_SPEECH_REGION=… \
+    python3 scripts/audio/generate.py /tmp/texts.json --provider azure
+  # or fully free and offline (robotic) — see CREDITS.md for the licence
+  python3 scripts/audio/generate.py /tmp/texts.json --provider mimic3 --model-dir <dir>
+  ```
+
+See `CREDITS.md` for licences that matter if you sell access.
 
 Afrikaans is FSI Category I — the easiest class of language for English
 speakers (no grammatical gender, no verb conjugation). 20–30 focused minutes
-a day for 16 weeks is a realistic path to solid conversational ability.
+a day is a realistic path to solid conversational ability within a few months.
 
 ## Stack
 
