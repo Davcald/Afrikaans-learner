@@ -39,7 +39,7 @@ export const unit: Unit = {
     { id: "u35-v029", af: "blus", en: "to put out / to extinguish", altEn: ["put out", "extinguish", "to put out", "to extinguish"], exampleAf: "Hulle kon die vuur vinnig blus.", exampleEn: "They were able to put out the fire quickly.", pos: "v", pron: "blus" },
     { id: "u35-v030", af: "brandblusser", en: "fire extinguisher", exampleAf: "Daar is 'n brandblusser in die kombuis.", exampleEn: "There is a fire extinguisher in the kitchen.", pos: "n", pron: "BRUNT-blus-ser" },
     { id: "u35-v031", af: "ontplof", en: "to explode", altEn: ["explode", "blow up", "to blow up"], exampleAf: "'n Gasbottel kan in 'n brand ontplof.", exampleEn: "A gas bottle can explode in a fire.", pos: "v", pron: "ont-PLAWF" },
-    { id: "u35-v032", af: "vloed", en: "flood", exampleAf: "Die vloed het die brug gebreek.", exampleEn: "The flood broke the bridge.", pos: "n", pron: "floot" },
+    { id: "u35-v032", af: "vloed", en: "flood", exampleAf: "Ná die vloed was die pad toe.", exampleEn: "After the flood the road was closed.", pos: "n", pron: "floot" },
     { id: "u35-v033", af: "waarskuwing", en: "warning", exampleAf: "Lees die waarskuwing op die bord.", exampleEn: "Read the warning on the sign.", pos: "n", pron: "VAHR-skew-ving" },
     { id: "u35-v034", af: "waarsku", en: "to warn", altEn: ["warn"], exampleAf: "Ek waarsku jou net een keer.", exampleEn: "I am warning you only once.", pos: "v", pron: "VAHR-skew" },
     { id: "u35-v035", af: "waaksaam", en: "alert / vigilant", altEn: ["alert", "vigilant", "watchful"], exampleAf: "Bly waaksaam as jy snags ry.", exampleEn: "Stay alert when you drive at night.", pos: "adj", pron: "VAHK-sahm" },

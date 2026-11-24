@@ -57,7 +57,7 @@ export const unit: Unit = {
     { id: "u36-v047", af: "reënval", en: "rainfall", exampleAf: "Die reënval was vanjaar laag.", exampleEn: "The rainfall was low this year.", pos: "n", pron: "RIH-un-ful" },
     { id: "u36-v048", af: "veroorsaak", en: "to cause", altEn: ["cause"], exampleAf: "Droogte kan veldbrande veroorsaak.", exampleEn: "Drought can cause veld fires.", pos: "v", pron: "fer-OOR-sahk" },
     { id: "u36-v049", af: "gevolg", en: "consequence / result", altEn: ["consequence", "result", "effect"], exampleAf: "Die droogte het ernstige gevolge.", exampleEn: "The drought has serious consequences.", pos: "n", pron: "ghuh-FOLGH", clozeForm: "gevolge" },
-    { id: "u36-v050", af: "toeneem", en: "to increase", altEn: ["increase", "grow", "to grow"], exampleAf: "Die temperatuur gaan volgende week toeneem.", exampleEn: "The temperature is going to increase next week.", pos: "v", pron: "TOO-nee-um" },
+    { id: "u36-v050", af: "toeneem", en: "to increase", altEn: ["increase", "grow", "to grow"], exampleAf: "Veldbrande gaan in die toekoms toeneem.", exampleEn: "Veld fires are going to increase in future.", pos: "v", pron: "TOO-nee-um" },
   ],
   phrases: [
     { id: "u36-p01", af: "Die krag is af.", en: "The power is out." },

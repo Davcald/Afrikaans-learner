@@ -78,7 +78,7 @@ export const unit: Unit = {
 
 - *oor* + wat → ***waaroor*** — *Waaroor gaan die brief?* (What is the letter about?)
 - *van* + wat → ***waarvan*** — *Waarvan praat jy?* (What are you talking about?)
-- *op* + wat → ***waarop*** — *Waarop wag ons?* (What are we waiting for?)
+- *na* + wat → ***waarna*** — *Waarna kyk jy?* (What are you looking at?)
 
 Two prepositions change shape when they fuse:
 
