@@ -3,7 +3,7 @@
 **Live at: https://vlot-afrikaans.vercel.app**
 
 **Vlot** (Afrikaans for *fluent*) is a mobile-first web app that gets you from
-zero to confident Afrikaans across 40 units and about 2,000 words. It is multi-user: everyone
+zero to confident Afrikaans across 40 units, about 2,000 words and 400 phrases. It is multi-user: everyone
 signs up with email + password and gets their own progress, streaks, and a
 spot on the shared leaderboard.
 
