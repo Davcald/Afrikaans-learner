@@ -12,7 +12,7 @@ export const unit: Unit = {
     { id: "u38-v002", af: "wetenskaplike", en: "scientist", exampleAf: "My tannie is 'n wetenskaplike.", exampleEn: "My aunt is a scientist.", pos: "n", pron: "vee-ten-SKUP-lik-uh" },
     { id: "u38-v003", af: "eksperiment", en: "experiment", exampleAf: "Die klas doen vandag 'n eksperiment.", exampleEn: "The class is doing an experiment today.", pos: "n", pron: "eks-peh-ri-MENT" },
     { id: "u38-v004", af: "laboratorium", en: "laboratory", altEn: ["lab"], exampleAf: "Sy werk in 'n laboratorium by die universiteit.", exampleEn: "She works in a laboratory at the university.", pos: "n", pron: "lub-oh-ruh-TOO-ree-um" },
-    { id: "u38-v005", af: "swaartekrag", en: "gravity", exampleAf: "Swaartekrag trek alles grond toe.", exampleEn: "Gravity pulls everything to the ground.", pos: "n", pron: "SWAHR-tuh-krugh" },
+    { id: "u38-v005", af: "swaartekrag", en: "gravity", exampleAf: "Swaartekrag trek alles grond toe.", exampleEn: "Gravity pulls everything to the ground.", pos: "n", pron: "SVAHR-tuh-krugh" },
     { id: "u38-v006", af: "sentimeter", en: "centimetre", altEn: ["centimeter", "cm"], exampleAf: "Die tafel is tagtig sentimeter breed.", exampleEn: "The table is eighty centimetres wide.", pos: "n", pron: "SEN-ti-mee-uh-ter" },
     { id: "u38-v007", af: "breedte", en: "width", altEn: ["breadth"], exampleAf: "Die breedte van die deur is een meter.", exampleEn: "The width of the door is one metre.", pos: "n", pron: "BREE-uh-tuh" },
     { id: "u38-v008", af: "hoogte", en: "height", altEn: ["altitude"], exampleAf: "Die hoogte van die berg is duisend meter.", exampleEn: "The height of the mountain is a thousand metres.", pos: "n", pron: "HOH-ugh-tuh" },

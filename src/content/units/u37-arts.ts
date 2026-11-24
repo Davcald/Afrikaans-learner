@@ -44,7 +44,7 @@ export const unit: Unit = {
     { id: "u37-v034", af: "spanning", en: "suspense / tension", altEn: ["suspense", "tension"], exampleAf: "Die fliek is vol spanning.", exampleEn: "The movie is full of suspense.", pos: "n", pron: "SPUN-ning" },
     { id: "u37-v035", af: "intrige", en: "plot", altEn: ["storyline"], exampleAf: "Die intrige van die roman is baie slim.", exampleEn: "The plot of the novel is very clever.", pos: "n", pron: "in-TREE-ghuh" },
     { id: "u37-v036", af: "trom", en: "drum", exampleAf: "Hy speel trom in 'n orkes.", exampleEn: "He plays the drum in a band.", pos: "n", pron: "trom" },
-    { id: "u37-v037", af: "resensie", en: "review", exampleAf: "Die koerant het 'n goeie resensie geskryf.", exampleEn: "The newspaper wrote a good review.", pos: "n", pron: "reh-SEN-see" },
+    { id: "u37-v037", af: "resensie", en: "review", exampleAf: "Die fliek het 'n goeie resensie gekry.", exampleEn: "The movie got a good review.", pos: "n", pron: "reh-SEN-see" },
     { id: "u37-v038", af: "verbeelding", en: "imagination", exampleAf: "Kinders het 'n wonderlike verbeelding.", exampleEn: "Children have a wonderful imagination.", pos: "n", pron: "fer-BEE-ul-ding" },
     { id: "u37-v039", af: "reeks", en: "series", exampleAf: "Ons kyk 'n nuwe reeks op televisie.", exampleEn: "We are watching a new series on television.", pos: "n", pron: "REE-uks" },
     { id: "u37-v040", af: "publiseer", en: "to publish", altEn: ["publish"], exampleAf: "Sy wil haar gedigte publiseer.", exampleEn: "She wants to publish her poems.", pos: "v", pron: "pew-bli-SEE-er" },
