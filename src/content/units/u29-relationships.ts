@@ -36,7 +36,7 @@ export const unit: Unit = {
     { id: "u29-v026", af: "vergewe", en: "to forgive", altEn: ["forgive"], altAf: ["vergeef"], exampleAf: "Kan jy my asseblief vergewe?", exampleEn: "Can you please forgive me?", pos: "v", pron: "fer-GHEE-vuh" },
     { id: "u29-v027", af: "spyt", en: "sorry / regretful", altEn: ["sorry", "regretful", "regret"], exampleAf: "Ek is spyt oor wat ek gesê het.", exampleEn: "I regret what I said.", pos: "adj", pron: "spayt" },
     { id: "u29-v028", af: "jok", en: "to fib / to lie", altEn: ["fib", "lie", "tell a lie"], exampleAf: "Moenie vir my jok nie!", exampleEn: "Don't lie to me!", pos: "v", pron: "yawk" },
-    { id: "u29-v029", af: "verneuk", en: "to cheat / to deceive", altEn: ["cheat", "deceive", "cheat on"], exampleAf: "Hy het haar nooit verneuk nie.", exampleEn: "He never cheated on her.", pos: "v", pron: "fer-NEE-uk (eu like the vowel in 'near', lips rounded)" },
+    { id: "u29-v029", af: "verneuk", en: "to cheat / to deceive", altEn: ["cheat", "deceive", "cheat on"], exampleAf: "Hy het haar nooit verneuk nie.", exampleEn: "He never cheated on her.", pos: "v", pron: "fer-NEE-uk" },
     { id: "u29-v030", af: "seermaak", en: "to hurt", altEn: ["hurt"], exampleAf: "Ek wou jou nie seermaak nie.", exampleEn: "I did not want to hurt you.", pos: "v", pron: "SEE-ur-mahk" },
     { id: "u29-v031", af: "teleurstel", en: "to disappoint", altEn: ["disappoint", "let down"], exampleAf: "Ek sal jou nie teleurstel nie.", exampleEn: "I will not let you down.", pos: "v", pron: "tuh-LEE-ur-stel" },
     { id: "u29-v032", af: "verlang", en: "to long for / to miss", altEn: ["long for", "miss", "long"], exampleAf: "Ek verlang baie na jou.", exampleEn: "I miss you a lot.", pos: "v", pron: "fer-LUNG" },
@@ -84,7 +84,7 @@ export const unit: Unit = {
 
 After a preposition you use the same object forms: *vir **my**, met **hom**, sonder **haar**, na **julle***. That is why "I love you" is *Ek is lief vir **jou***.
 
-**2. Possessives before a noun** — only two are new:
+**2. Possessives before a noun:**
 
 - ***my** man, **jou** vrou, **sy** ma, **haar** pa, **ons** huis, **julle** kinders, **hulle** troue*
 - Watch *hy*: object ***hom***, but possessive ***sy*** — *Ek ken **hom** en **sy** broer.*

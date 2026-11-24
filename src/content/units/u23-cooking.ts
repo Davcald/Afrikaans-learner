@@ -83,7 +83,7 @@ Spelling keeps the vowel sounding the same:
 - **Short vowel? Double the consonant:** *pot → **potte***, *pan → **panne***, *mes → **messe***, *vis → **visse***
 - **Long double vowel? Drop one letter:** *boom → **bome***, *skaap → **skape***, *vuur → **vure***, *been → **bene***
 
-**2. -s goes on words that end in an unstressed -el, -er, -em, -en, -ie or -aar:** *lepel → **lepels***, *wortel → **wortels***, *eier → **eiers***, *mielie → **mielies***, *tamatie → **tamaties***, *kuiken → **kuikens***. Also on many family and people words: *oom → **ooms***, *seun → **seuns***, *sjef → **sjefs***.
+**2. -s goes on longer words that end in -el, -er, -em, -en, -ie or -aar:** *lepel → **lepels***, *wortel → **wortels***, *eier → **eiers***, *mielie → **mielies***, *tamatie → **tamaties***, *kuiken → **kuikens***. Also on many family and people words: *oom → **ooms***, *seun → **seuns***, *sjef → **sjefs***.
 
 Words ending in a stressed **-a**, or in **-i, -o, -u**, take **'s**: *ma → **ma's***, *foto → **foto's***, *taxi → **taxi's***.
 
@@ -97,7 +97,7 @@ Words ending in a stressed **-a**, or in **-i, -o, -u**, take **'s**: *ma → **
 
 - *kind → **kinders***, *lam → **lammers***, *kalf → **kalwers***
 - *stad → **stede***, *skip → **skepe***, *glas → **glase***, *pad → **paaie***
-- *hemp → **hemde***, *bed → **beddens***, *vrou → **vroue(ns)***
+- *hemp → **hemde***, *bed → **beddens***, *vrou → **vroue*** (or ***vrouens***)
 
 When in doubt, try **-e** first — you will be right most of the time.`,
     examples: [

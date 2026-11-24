@@ -14,7 +14,7 @@ export const unit: Unit = {
     { id: "u22-v004", af: "das", en: "tie", altEn: ["necktie"], exampleAf: "Hy dra elke dag 'n das werk toe.", exampleEn: "He wears a tie to work every day.", pos: "n", pron: "dus" },
     { id: "u22-v005", af: "serp", en: "scarf", exampleAf: "Dra 'n serp; dit is koud buite.", exampleEn: "Wear a scarf; it is cold outside.", pos: "n", pron: "serp" },
     { id: "u22-v006", af: "handskoen", en: "glove", exampleAf: "Ek het een handskoen verloor.", exampleEn: "I have lost one glove.", pos: "n", pron: "HUNT-skoon" },
-    { id: "u22-v007", af: "mus", en: "beanie / woolly hat", altEn: ["beanie", "woolly hat", "cap"], exampleAf: "Die baba dra 'n warm mus.", exampleEn: "The baby is wearing a warm beanie.", pos: "n", pron: "mus (u as in 'put', lips rounded)" },
+    { id: "u22-v007", af: "mus", en: "beanie / woolly hat", altEn: ["beanie", "woolly hat", "cap"], exampleAf: "Die baba dra 'n warm mus.", exampleEn: "The baby is wearing a warm beanie.", pos: "n", pron: "mus" },
     { id: "u22-v008", af: "pet", en: "cap", altEn: ["peaked cap"], exampleAf: "Die seun dra 'n rooi pet.", exampleEn: "The boy is wearing a red cap.", pos: "n", pron: "pet" },
     { id: "u22-v009", af: "stewel", en: "boot", exampleAf: "Die boer dra swaar stewels.", exampleEn: "The farmer wears heavy boots.", pos: "n", pron: "STEE-vel", clozeForm: "stewels" },
     { id: "u22-v010", af: "sandaal", en: "sandal", exampleAf: "Ek dra somers net sandale.", exampleEn: "In summer I only wear sandals.", pos: "n", pron: "sun-DAHL", clozeForm: "sandale" },

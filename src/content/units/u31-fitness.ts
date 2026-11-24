@@ -32,7 +32,7 @@ export const unit: Unit = {
     { id: "u31-v022", af: "kampioen", en: "champion", exampleAf: "Sy is die nuwe kampioen.", exampleEn: "She is the new champion.", pos: "n", pron: "kum-pee-OON" },
     { id: "u31-v023", af: "beker", en: "cup / trophy (also: mug)", altEn: ["cup", "trophy", "mug"], exampleAf: "Wie gaan vanjaar die beker wen?", exampleEn: "Who is going to win the cup this year?", pos: "n", pron: "BEE-ker" },
     { id: "u31-v024", af: "medalje", en: "medal", exampleAf: "Hy het 'n goue medalje gewen.", exampleEn: "He won a gold medal.", pos: "n", pron: "muh-DUL-yuh" },
-    { id: "u31-v025", af: "rekord", en: "record", exampleAf: "Dit is 'n nuwe wêreldrekord!", exampleEn: "That is a new world record!", pos: "n", pron: "ruh-KORT", clozeForm: "wêreldrekord" },
+    { id: "u31-v025", af: "rekord", en: "record", exampleAf: "Sy het 'n nuwe rekord opgestel.", exampleEn: "She set a new record.", pos: "n", pron: "ruh-KORT" },
     { id: "u31-v026", af: "wedloop", en: "race", exampleAf: "Sy het die wedloop maklik gewen.", exampleEn: "She won the race easily.", pos: "n", pron: "VET-loh-up" },
     { id: "u31-v027", af: "atleet", en: "athlete", exampleAf: "'n Goeie atleet oefen elke dag.", exampleEn: "A good athlete trains every day.", pos: "n", pron: "ut-LEE-ut" },
     { id: "u31-v028", af: "atletiek", en: "athletics", exampleAf: "My dogter doen atletiek by die skool.", exampleEn: "My daughter does athletics at school.", pos: "n", pron: "ut-luh-TEEK" },

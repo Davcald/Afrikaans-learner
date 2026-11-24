@@ -101,7 +101,7 @@ export const unit: Unit = {
       { af: "As ek tyd gehad het, sou ek 'n koek bak.", en: "If I had time, I would bake a cake." },
       { af: "As jy my genooi het, sou ek gekom het.", en: "If you had invited me, I would have come." },
       { af: "Ek wens Oupa was vandag hier.", en: "I wish Grandpa were here today." },
-      { af: "Wat sou jy doen as jy 'n miljoen rand wen?", en: "What would you do if you won a million rand?" },
+      { af: "Wat sou jy doen as jy 'n miljoen rand gehad het?", en: "What would you do if you had a million rand?" },
     ],
   },
   cloze: [
