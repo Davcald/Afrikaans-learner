@@ -11,7 +11,7 @@ export const unit: Unit = {
     { id: "u40-v001", af: "toemaar", en: "never mind / there, there", altEn: ["never mind", "there, there", "don't worry", "it's okay"], exampleAf: "Toemaar, môre is nog 'n dag.", exampleEn: "Never mind, tomorrow is another day.", pos: "interj", pron: "TOO-mahr" },
     { id: "u40-v002", af: "foeitog", en: "shame / poor thing", altEn: ["shame", "poor thing", "ag shame", "what a pity"], exampleAf: "Foeitog, die hondjie is nat en koud.", exampleEn: "Shame, the little dog is wet and cold.", pos: "interj", pron: "FOOY-togh" },
     { id: "u40-v003", af: "sterkte", en: "good luck / all the best", altEn: ["good luck", "all the best", "strength"], exampleAf: "Sterkte met die eksamen môre!", exampleEn: "Good luck with the exam tomorrow!", pos: "interj", pron: "STERK-tuh" },
-    { id: "u40-v004", af: "haai", en: "hey / oh my", altEn: ["hey", "oh my", "goodness"], exampleAf: "Haai, wat maak jy hier?", exampleEn: "Hey, what are you doing here?", pos: "interj", pron: "high" },
+    { id: "u40-v004", af: "nou toe nou", en: "well, I never / well, well", altEn: ["well I never", "well well", "goodness me"], exampleAf: "Nou toe nou, kyk wie is hier!", exampleEn: "Well, well, look who is here!", pos: "phrase", pron: "noh too NOH" },
     { id: "u40-v005", af: "sies", en: "yuck / sis", altEn: ["yuck", "sis", "ugh", "gross"], exampleAf: "Sies, die melk is suur!", exampleEn: "Yuck, the milk is sour!", pos: "interj", pron: "sis" },
     { id: "u40-v006", af: "jislaaik", en: "wow / gosh", altEn: ["wow", "gosh", "jeez"], exampleAf: "Jislaaik, maar dis warm vandag!", exampleEn: "Gosh, it's hot today!", pos: "interj", pron: "YIS-like" },
     { id: "u40-v007", af: "nè", en: "right? / isn't it?", altEn: ["right?", "isn't it?", "hey?", "right", "isn't it"], exampleAf: "Dis lekker warm vandag, nè?", exampleEn: "It's nice and warm today, isn't it?", pos: "interj", pron: "neh" },
@@ -123,7 +123,7 @@ Now stack them: ***on-vergeet-lik*** = un-forget-able. ***On-ver-antwoord-e-lik*
     title: "Hou duim vas!",
     titleEn: "Fingers crossed!",
     lines: [
-      { speaker: "Nandi", af: "Haai, Danie! Wat makeer? Jy lyk moeg.", en: "Hey, Danie! What's wrong? You look tired.", glosses: { makeer: "(wat makeer?) what's wrong?" } },
+      { speaker: "Nandi", af: "Haai, Danie! Wat makeer? Jy lyk moeg.", en: "Hey, Danie! What's wrong? You look tired.", glosses: { haai: "hey! (surprise)", makeer: "(wat makeer?) what's wrong?" } },
       { speaker: "Danie", af: "Ek het môre 'n onderhoud vir 'n nuwe werk, en ek is baie senuweeagtig.", en: "I have an interview for a new job tomorrow, and I am very nervous.", glosses: { onderhoud: "interview", nuwe: "new" } },
       { speaker: "Nandi", af: "Foeitog. Waar is die onderhoud?", en: "Shame. Where is the interview?" },
       { speaker: "Danie", af: "By 'n bank. Ek het, om die waarheid te sê, geen idee wat hulle gaan vra nie.", en: "At a bank. To tell the truth, I have no idea what they are going to ask." },

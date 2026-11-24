@@ -5,7 +5,7 @@ export const hooks: HookMap = {
   "u39-v002": { kind: "mnemonic", hook: "Voor ≈ fore + deel (part): the part that puts you in front." },
   "u39-v003": { kind: "mnemonic", hook: "Na (after) + deel (part): the part that puts you behind." },
   "u39-v004": { kind: "cognate", hook: "Feit ≈ feat and fact — all from the Latin for 'something done'." },
-  "u39-v005": { kind: "mnemonic", hook: "Voor (before) + beeld (image): an image held up before you — an example." },
+  "u39-v005": { kind: "mnemonic", hook: "From beweer (to claim) + -ing: a claim." },
   "u39-v006": { kind: "mnemonic", hook: "From aanneem (to assume): what you 'take on' as true." },
   "u39-v007": { kind: "mnemonic", hook: "Oor- (original) + saak (matter): the original matter behind it — the cause." },
   "u39-v008": { kind: "mnemonic", hook: "From oplos (to solve) + -ing: it 'loosens up' the problem." },

@@ -3,7 +3,7 @@ import type { Unit } from "../types";
 export const unit: Unit = {
   id: "u34",
   title: "News, politics & society",
-  titleAf: "Nuus, politiek en die samelewing",
+  titleAf: "Nuus, politiek en samelewing",
   week: 30,
   cefr: "B2",
   description: "Headlines, elections and opinions — and saying what was done, and what must be done.",

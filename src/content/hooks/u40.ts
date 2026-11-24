@@ -4,7 +4,7 @@ export const hooks: HookMap = {
   "u40-v001": { kind: "mnemonic", hook: "Literally 'toe maar' — 'go on then': a soothing never-mind." },
   "u40-v002": { kind: "mnemonic", hook: "Foei (fie!) + tog: a soft 'oh dear' of sympathy." },
   "u40-v003": { kind: "cognate", hook: "Sterk ≈ stark, strong: 'Strength!' — wished to someone facing something hard.", emoji: "💪" },
-  "u40-v004": { kind: "mnemonic", hook: "Sounds like English 'hi' — but said in surprise." },
+  "u40-v004": { kind: "mnemonic", hook: "Literally 'now then now' — said when something surprises you." },
   "u40-v005": { kind: "same", hook: "South African English borrowed it: 'Sis, man!'" },
   "u40-v006": { kind: "same", hook: "South African English borrowed it too: 'Jislaaik!' = wow." },
   "u40-v007": { kind: "mnemonic", hook: "Tagged on the end like English 'hey?': 'Nice day, nè?'" },

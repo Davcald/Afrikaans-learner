@@ -12,7 +12,7 @@ export const unit: Unit = {
     { id: "u39-v002", af: "voordeel", en: "advantage", altEn: ["benefit"], exampleAf: "Die groot voordeel is die lae prys.", exampleEn: "The big advantage is the low price.", pos: "n", pron: "FOO-er-dee-ul" },
     { id: "u39-v003", af: "nadeel", en: "disadvantage", altEn: ["drawback", "downside"], exampleAf: "Die enigste nadeel is die afstand.", exampleEn: "The only disadvantage is the distance.", pos: "n", pron: "NAH-dee-ul" },
     { id: "u39-v004", af: "feit", en: "fact", exampleAf: "Dit is 'n feit, nie 'n mening nie.", exampleEn: "That is a fact, not an opinion.", pos: "n", pron: "fayt" },
-    { id: "u39-v005", af: "voorbeeld", en: "example", exampleAf: "Kan jy vir my 'n voorbeeld gee?", exampleEn: "Can you give me an example?", pos: "n", pron: "FOO-er-bee-ult" },
+    { id: "u39-v005", af: "bewering", en: "claim / assertion", altEn: ["claim", "assertion", "allegation"], exampleAf: "Daardie bewering is nie waar nie.", exampleEn: "That claim is not true.", pos: "n", pron: "buh-VEE-uh-ring" },
     { id: "u39-v006", af: "aanname", en: "assumption", exampleAf: "Dit is net 'n aanname.", exampleEn: "That is only an assumption.", pos: "n", pron: "AHN-nah-muh" },
     { id: "u39-v007", af: "oorsaak", en: "cause", exampleAf: "Wat is die oorsaak van die probleem?", exampleEn: "What is the cause of the problem?", pos: "n", pron: "OO-er-sahk" },
     { id: "u39-v008", af: "oplossing", en: "solution", exampleAf: "Ons soek nog 'n oplossing.", exampleEn: "We are still looking for a solution.", pos: "n", pron: "OP-los-sing" },

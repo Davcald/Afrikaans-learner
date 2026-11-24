@@ -1,11 +1,11 @@
 import type { HookMap } from "./types";
 
 export const hooks: HookMap = {
-  "u38-v001": { kind: "mnemonic", hook: "Weet (know) + -skap (≈ -ship): 'knowing-ship'. Science also comes from the Latin for knowing.", emoji: "🔬" },
+  "u38-v001": { kind: "cognate", hook: "Mikroskoop ≈ microscope — k for c, long oo.", emoji: "🔬" },
   "u38-v002": { kind: "mnemonic", hook: "Wetenskap (science) + -like: a science person." },
   "u38-v003": { kind: "cognate", hook: "Eksperiment ≈ experiment — ks for x.", emoji: "🧪" },
   "u38-v004": { kind: "cognate", hook: "Laboratorium ≈ laboratory, with its Latin ending intact." },
-  "u38-v005": { kind: "mnemonic", hook: "Na (after) + vors (probe): to search after something — re-search." },
+  "u38-v005": { kind: "mnemonic", hook: "Swaar (heavy) + krag (force): the force that makes things heavy." },
   "u38-v006": { kind: "cognate", hook: "Sentimeter ≈ centimetre — s for c." },
   "u38-v007": { kind: "cognate", hook: "Breed ≈ broad + -te ≈ -th: breadth." },
   "u38-v008": { kind: "cognate", hook: "Hoog ≈ high + -te: height." },
