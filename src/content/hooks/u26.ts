@@ -48,6 +48,6 @@ export const hooks: HookMap = {
   "u26-v046": { kind: "mnemonic", hook: "Slag (a blow) + gat (hole): a hole that hits your wheel.", emoji: "🕳️" },
   "u26-v047": { kind: "mnemonic", hook: "Spits (peak) + verkeer (traffic): peak traffic." },
   "u26-v048": { kind: "mnemonic", hook: "Voet ≈ foot + ganger ≈ goer: a foot-goer.", emoji: "🚶" },
-  "u26-v049": { kind: "cognate", hook: "Gevaar ≈ fear: what is gevaarlik fills you with fear.", emoji: "⚠️" },
+  "u26-v049": { kind: "cognate", hook: "Roekeloos ≈ reckless — the same word in Afrikaans dress." },
   "u26-v050": { kind: "mnemonic", hook: "Sig = sight: a careful driver keeps everything in sight." },
 };

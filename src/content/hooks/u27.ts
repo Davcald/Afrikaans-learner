@@ -9,7 +9,7 @@ export const hooks: HookMap = {
   "u27-v006": { kind: "mnemonic", hook: "Aarde (earth) + ryk (realm) + kunde (knowledge).", emoji: "🌍" },
   "u27-v007": { kind: "mnemonic", hook: "Klas (class) + kamer (room)." },
   "u27-v008": { kind: "mnemonic", hook: "Skool + hoof (head): the head of the school." },
-  "u27-v009": { kind: "cognate", hook: "Dosent ≈ docent, an older English word for a teacher." },
+  "u27-v009": { kind: "cognate", hook: "Dosent ≈ docent — in English too, a docent is a lecturer or guide." },
   "u27-v010": { kind: "mnemonic", hook: "Lees (read) + -ing: a 'reading' — 'lecture' comes from Latin for reading too." },
   "u27-v011": { kind: "mnemonic", hook: "Hoof (head, main) + stuk (piece): a main piece of the book." },
   "u27-v012": { kind: "cognate", hook: "Kwart ≈ quarter: a quarter of the school year." },

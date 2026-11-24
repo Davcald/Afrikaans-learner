@@ -33,7 +33,7 @@ export const unit: Unit = {
     { id: "u35-v023", af: "wapen", en: "weapon", exampleAf: "Die man het 'n wapen gehad.", exampleEn: "The man had a weapon.", pos: "n", pron: "VAH-pun" },
     { id: "u35-v024", af: "alarm", en: "alarm", exampleAf: "Die alarm het in die nag afgegaan.", exampleEn: "The alarm went off in the night.", pos: "n", pron: "ah-LARM" },
     { id: "u35-v025", af: "motorkaping", en: "carjacking / hijacking", altEn: ["carjacking", "hijacking", "car hijacking"], exampleAf: "Daar was 'n motorkaping by die verkeerslig.", exampleEn: "There was a hijacking at the traffic light.", pos: "n", pron: "MOH-ter-kah-ping" },
-    { id: "u35-v026", af: "heining", en: "fence", exampleAf: "Daar is 'n hoë heining om die huis.", exampleEn: "There is a high fence around the house.", pos: "n", pron: "HAY-ning" },
+    { id: "u35-v026", af: "diefwering", en: "burglar bars", altEn: ["burglar proofing", "security bars"], exampleAf: "Ons het diefwering voor al die vensters.", exampleEn: "We have burglar bars in front of all the windows.", pos: "n", pron: "DEEF-vee-ring" },
     { id: "u35-v027", af: "ontruim", en: "to evacuate", altEn: ["evacuate", "clear", "to clear"], exampleAf: "Ons moes die gebou dadelik ontruim.", exampleEn: "We had to evacuate the building immediately.", pos: "v", pron: "ont-RAYM" },
     { id: "u35-v028", af: "vlam", en: "flame", exampleAf: "Die vlamme was baie hoog.", exampleEn: "The flames were very high.", pos: "n", pron: "flum", clozeForm: "vlamme" },
     { id: "u35-v029", af: "blus", en: "to put out / to extinguish", altEn: ["put out", "extinguish", "to put out", "to extinguish"], exampleAf: "Hulle kon die vuur vinnig blus.", exampleEn: "They were able to put out the fire quickly.", pos: "v", pron: "blus" },

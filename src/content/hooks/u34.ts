@@ -19,7 +19,7 @@ export const hooks: HookMap = {
   "u34-v018": { kind: "mnemonic", hook: "Op (on top) + skrif (writing): the writing on top.", emoji: "📰" },
   "u34-v019": { kind: "mnemonic", hook: "A news report had better BE RIGHT." },
   "u34-v020": { kind: "cognate", hook: "Joernalis ≈ journalist — oe for ou, no final t." },
-  "u34-v021": { kind: "mnemonic", hook: "Onder (among) + hou (hold): a talk held between two people.", emoji: "🎙️" },
+  "u34-v021": { kind: "mnemonic", hook: "Verslag (report) + gewer (giver): the report-giver.", emoji: "🎤" },
   "u34-v022": { kind: "mnemonic", hook: "Uit (out) + saai (sow): to cast it out widely — a broad-cast.", emoji: "📡" },
   "u34-v025": { kind: "cognate", hook: "Kritiseer ≈ criticise — k for c, with the verb ending -eer." },
   "u34-v026": { kind: "cognate", hook: "Debat ≈ debate — stress on the end." },

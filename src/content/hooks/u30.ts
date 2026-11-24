@@ -30,7 +30,7 @@ export const hooks: HookMap = {
   "u30-v029": { kind: "cognate", hook: "Meet ≈ mete, as in a METer: to measure.", emoji: "📏" },
   "u30-v030": { kind: "mnemonic", hook: "Vas (fast, firm) + maak (make): to make fast." },
   "u30-v031": { kind: "mnemonic", hook: "Op (up) + hang: hang up." },
-  "u30-v032": { kind: "mnemonic", hook: "You struggle when your boots get SUCKed into the mud." },
+  "u30-v032": { kind: "cognate", hook: "Kraak ≈ crack." },
   "u30-v033": { kind: "cognate", hook: "Besem ≈ besom, the old English word for a broom.", emoji: "🧹" },
   "u30-v034": { kind: "mnemonic", hook: "You could charge a FEE for all this sweeping." },
   "u30-v035": { kind: "mnemonic", hook: "EMMA carries a bucket of water.", emoji: "🪣" },

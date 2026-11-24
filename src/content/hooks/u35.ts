@@ -44,4 +44,5 @@ export const hooks: HookMap = {
   "u35-v047": { kind: "mnemonic", hook: "Nood (emergency) + uitgang (exit, the 'out-going')." },
   "u35-v049": { kind: "cognate", hook: "Hulp ≈ help — the noun of the verb help." },
   "u35-v050": { kind: "cognate", hook: "Skree ≈ scream and screech." },
+  "u35-v026": { kind: "mnemonic", hook: "Dief (thief) + wering (warding off): thief-defence on the windows." },
 };

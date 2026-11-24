@@ -56,7 +56,7 @@ export const unit: Unit = {
     { id: "u26-v046", af: "slaggat", en: "pothole", exampleAf: "Pasop vir die slaggat in die pad!", exampleEn: "Watch out for the pothole in the road!", pos: "n", pron: "SLUGH-ghut" },
     { id: "u26-v047", af: "spitsverkeer", en: "rush-hour traffic", altEn: ["rush hour traffic", "peak traffic", "rush hour"], exampleAf: "Ek sit elke oggend in die spitsverkeer.", exampleEn: "I sit in rush-hour traffic every morning.", pos: "n", pron: "SPITS-fer-keer" },
     { id: "u26-v048", af: "voetganger", en: "pedestrian", exampleAf: "Stop altyd vir 'n voetganger.", exampleEn: "Always stop for a pedestrian.", pos: "n", pron: "FOOT-ghung-er" },
-    { id: "u26-v049", af: "gevaarlik", en: "dangerous", exampleAf: "Dit is gevaarlik om so vinnig te ry.", exampleEn: "It is dangerous to drive so fast.", pos: "adj", pron: "ghuh-FAHR-lik" },
+    { id: "u26-v049", af: "roekeloos", en: "reckless / recklessly", altEn: ["reckless", "recklessly"], exampleAf: "Hy bestuur baie roekeloos.", exampleEn: "He drives very recklessly.", pos: "adj", pron: "ROO-kuh-loos" },
     { id: "u26-v050", af: "versigtig", en: "careful / carefully", altEn: ["careful", "carefully", "cautious"], exampleAf: "Ry versigtig; die pad is nat.", exampleEn: "Drive carefully; the road is wet.", pos: "adj", pron: "fer-SIGH-tigh" },
   ],
   phrases: [
@@ -118,7 +118,7 @@ For **people**, keep the preposition and a normal pronoun: ***Vir wie** wag jy?*
     { id: "u26-c05", textAf: "Hy is baie trots {{op}} sy nuwe motor.", answer: "op", distractors: ["vir", "van"], en: "He is very proud of his new car." },
     { id: "u26-c06", textAf: "{{Waarna}} luister jy in die motor?", answer: "Waarna", distractors: ["Waaraan", "Waarvoor"], en: "What do you listen to in the car?" },
     { id: "u26-c07", textAf: "In die verkeer luister ek {{na}} die radio.", answer: "na", distractors: ["aan", "vir"], en: "In traffic I listen to the radio." },
-    { id: "u26-c08", textAf: "Ons motor het langs die pad {{onklaar}} geraak.", answer: "onklaar", distractors: ["gevaarlik", "versigtig"], en: "Our car broke down next to the road." },
+    { id: "u26-c08", textAf: "Ons motor het langs die pad {{onklaar}} geraak.", answer: "onklaar", distractors: ["roekeloos", "versigtig"], en: "Our car broke down next to the road." },
   ],
   dialogue: {
     id: "u26-d01",
@@ -128,7 +128,7 @@ For **people**, keep the preposition and a normal pronoun: ***Vir wie** wag jy?*
       { speaker: "Elsa", af: "Kobus, luister na daardie geluid! Wat is dit?", en: "Kobus, listen to that noise! What is it?" },
       { speaker: "Kobus", af: "Ek weet nie. Dit klink asof dit van die wiel af kom.", en: "I don't know. It sounds as if it's coming from the wheel.", glosses: { klink: "sounds", asof: "as if" } },
       { speaker: "Elsa", af: "Ry stadiger! Ons is op die snelweg en dit is gevaarlik.", en: "Drive slower! We're on the highway and it is dangerous.", glosses: { stadiger: "slower" } },
-      { speaker: "Kobus", af: "Ek stop sommer hier langs die pad. Ai, kyk — die band is pap.", en: "I'll just stop here next to the road. Oh dear, look — the tyre is flat.", glosses: { pap: "flat" } },
+      { speaker: "Kobus", af: "Ek stop sommer hier langs die pad. Ai, kyk — die band is pap.", en: "I'll just stop here next to the road. Oh dear, look — the tyre is flat.", glosses: { pap: "flat (also: porridge)" } },
       { speaker: "Elsa", af: "Dit was seker daardie slaggat naby die tolhek.", en: "It was probably that pothole near the toll gate." },
       { speaker: "Kobus", af: "Geen probleem nie. Die noodwiel en die domkrag is in die kattebak.", en: "No problem. The spare wheel and the jack are in the boot." },
       { speaker: "Elsa", af: "Kan jy self 'n wiel omruil?", en: "Can you change a wheel yourself?", glosses: { omruil: "to change / swap" } },
