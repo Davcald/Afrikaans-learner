@@ -101,6 +101,7 @@ class Azure:
                     return r.read()
             except urllib.error.HTTPError as e:
                 if e.code in (429, 500, 502, 503):
+                    print(f"  HTTP {e.code}, backing off", file=sys.stderr, flush=True)
                     time.sleep(15 * (attempt + 1))
                     continue
                 raise
@@ -155,6 +156,7 @@ class Azure:
                     parts = self._split(
                         self._request(self._ssml(voice, [b["text"] for b in batch])), len(batch))
                     if parts is None:  # couldn't cut cleanly: one request each
+                        print(f"  split mismatch near {batch[0]['text']!r}", file=sys.stderr, flush=True)
                         parts = [self._split(self._request(self._ssml(voice, [b["text"]])), 1)[0]
                                  for b in batch]
                     for it, (samples, sr) in zip(batch, parts):
@@ -174,6 +176,7 @@ def main() -> None:
     ap.add_argument("--speaker", type=int, default=1, help="mimic3 speaker id (0-8)")
     ap.add_argument("--voices", default="af-ZA-AdriNeural,af-ZA-WillemNeural")
     ap.add_argument("--limit", type=int, default=0, help="only the first N missing clips")
+    ap.add_argument("--shard", default="", help="i/n: record only every n-th missing clip, for parallel runs")
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
 
@@ -184,6 +187,9 @@ def main() -> None:
         else Mimic3(args.model_dir, args.speaker)
     )
     todo = [i for i in items if not os.path.exists(os.path.join(args.out, i["key"] + ".mp3"))]
+    if args.shard:
+        i, n = (int(v) for v in args.shard.split("/"))
+        todo = [t for k, t in enumerate(todo) if k % n == i]
     if args.limit:
         todo = todo[: args.limit]
     print(f"{len(items)} texts, {len(todo)} to record", file=sys.stderr)
