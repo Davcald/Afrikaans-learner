@@ -22,10 +22,31 @@ import { unit as u17 } from "./units/u17-nature-sa";
 import { unit as u18 } from "./units/u18-media-tech";
 import { unit as u19 } from "./units/u19-conversation";
 import { unit as u20 } from "./units/u20-idioms";
+import { unit as u21 } from "./units/u21-appearance";
+import { unit as u22 } from "./units/u22-clothes";
+import { unit as u23 } from "./units/u23-cooking";
+import { unit as u24 } from "./units/u24-animals";
+import { unit as u25 } from "./units/u25-banking";
+import { unit as u26 } from "./units/u26-driving";
+import { unit as u27 } from "./units/u27-education";
+import { unit as u28 } from "./units/u28-business";
+import { unit as u29 } from "./units/u29-relationships";
+import { unit as u30 } from "./units/u30-household";
+import { unit as u31 } from "./units/u31-fitness";
+import { unit as u32 } from "./units/u32-celebrations";
+import { unit as u33 } from "./units/u33-services";
+import { unit as u34 } from "./units/u34-news";
+import { unit as u35 } from "./units/u35-safety";
+import { unit as u36 } from "./units/u36-environment";
+import { unit as u37 } from "./units/u37-arts";
+import { unit as u38 } from "./units/u38-science";
+import { unit as u39 } from "./units/u39-ideas";
+import { unit as u40 } from "./units/u40-expressions";
 
 export const units: Unit[] = [
   u01, u02, u03, u04, u05, u06, u07, u08, u09, u10, u11, u12, u13, u14,
-  u15, u16, u17, u18, u19, u20,
+  u15, u16, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28,
+  u29, u30, u31, u32, u33, u34, u35, u36, u37, u38, u39, u40,
 ].sort(
   (a, b) => a.week - b.week || a.id.localeCompare(b.id),
 );
@@ -62,6 +83,5 @@ export function clozeById(id: string) {
   return clozeMap.get(id);
 }
 
-/** Total learnable words across all units (used for the 16-week trajectory). */
+/** Total learnable words across all units. */
 export const TOTAL_VOCAB_COUNT = vocabMap.size;
-export const TOTAL_WEEKS = 16;

@@ -6,6 +6,7 @@ import { db } from "@/db";
 import { cards, reviewLogs, userSettings, xpEvents } from "@/db/schema";
 import { localDateString } from "@/lib/dates";
 import { levelForXp, rankForLevel, xpForLevel } from "@/lib/gamification";
+import { isRetired } from "@/lib/srs/cardDefs";
 import { State } from "@/lib/srs/scheduler";
 
 export interface TrajectoryPoint {
@@ -30,7 +31,8 @@ export interface DashboardStats {
   targetWordsByNow: number;
 }
 
-const PLAN_DAYS = 112; // 16 weeks
+// The reference pace: ten new words a day until the course runs out.
+const PLAN_DAYS = Math.ceil(TOTAL_VOCAB_COUNT / 10);
 
 const VOCAB_REC_RE = /^u\d{2}-v\d+-rec$/;
 
@@ -48,6 +50,7 @@ export async function dashboardStats(
           cardId: cards.cardId,
           state: cards.state,
           scheduledDays: cards.scheduledDays,
+          stability: cards.stability,
           due: cards.due,
         })
         .from(cards)
@@ -99,7 +102,10 @@ export async function dashboardStats(
   const wordsMature = vocabRec.filter(
     (r) => r.state === State.Review && r.scheduledDays >= 21,
   ).length;
-  const dueNow = cardRows.filter((r) => r.due.getTime() <= now.getTime()).length;
+  const rowById = new Map(cardRows.map((r) => [r.cardId, r]));
+  const dueNow = cardRows.filter(
+    (r) => r.due.getTime() <= now.getTime() && !isRetired(r, rowById),
+  ).length;
 
   let retention: number | null = null;
   const totalReviews = retentionRows.reduce((n, r) => n + Number(r.n), 0);

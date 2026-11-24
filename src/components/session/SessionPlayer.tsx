@@ -9,12 +9,16 @@ import {
   completeShadow,
   gradeCard,
   logPractice,
+  type PracticeKind,
 } from "@/app/actions/review";
 import type { ExerciseItem, SessionPlan } from "@/lib/session/types";
 import { useTts } from "@/lib/speech/useTts";
 import Choice from "./Choice";
 import ClozeChoice from "./ClozeChoice";
+import Dictation from "./Dictation";
 import Flashcard from "./Flashcard";
+import Intro from "./Intro";
+import TilesAnswer from "./TilesAnswer";
 import GrammarLessonView from "./GrammarLessonView";
 import Listening from "./Listening";
 import ReaderView from "./ReaderView";
@@ -24,8 +28,14 @@ import WordBank from "./WordBank";
 
 interface QueueEntry {
   item: ExerciseItem;
-  requeued?: boolean;
+  /** How many times this item has already come back after a miss. */
+  attempt: number;
 }
+
+/** A missed item returns after this many others, up to MAX_RETRIES times. */
+const RETRY_GAP = 3;
+const MAX_RETRIES = 2;
+const MORE_WORDS_STEP = 5;
 
 interface Toast {
   id: number;
@@ -33,10 +43,21 @@ interface Toast {
 }
 
 function isSpeechOnly(item: ExerciseItem): boolean {
-  return item.kind === "listening" || item.kind === "shadow";
+  return (
+    item.kind === "listening" ||
+    item.kind === "dictation" ||
+    item.kind === "shadow"
+  );
 }
 
-export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
+export default function SessionPlayer({
+  plan,
+  extraNew = 0,
+}: {
+  plan: SessionPlan;
+  /** Extra new words already requested today on top of the daily target. */
+  extraNew?: number;
+}) {
   const router = useRouter();
   const tts = useTts();
   const [phase, setPhase] = useState<"intro" | "playing" | "done">("intro");
@@ -49,7 +70,6 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
   );
   const [toasts, setToasts] = useState<Toast[]>([]);
   const startRef = useRef(Date.now());
-  const requeuedRef = useRef(new Set<string>());
   const toastId = useRef(0);
 
   const finished =
@@ -92,7 +112,7 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
     const filtered = plan.items.filter(
       (item) => tts.available || !isSpeechOnly(item),
     );
-    setQueue(filtered.map((item) => ({ item })));
+    setQueue(filtered.map((item) => ({ item, attempt: 0 })));
     setIdx(0);
     startRef.current = Date.now();
     if (filtered.length === 0) setPhase("done");
@@ -109,20 +129,24 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
 
   const duration = () => Date.now() - startRef.current;
 
+  /** Bring a missed item back a few cards later, until it is answered right. */
+  const retryLater = (entry: QueueEntry) => {
+    if (entry.attempt >= MAX_RETRIES) return;
+    setQueue((q) => {
+      const copy = [...q];
+      copy.splice(Math.min(q.length, idx + 1 + RETRY_GAP), 0, {
+        item: entry.item,
+        attempt: entry.attempt + 1,
+      });
+      return copy;
+    });
+  };
+
   const handleGrade = (entry: QueueEntry, rating: 1 | 2 | 3 | 4) => {
     const item = entry.item;
     if (!("cardId" in item)) return;
     const d = duration();
-    // Failed cards come back a few items later for another attempt.
-    if (rating === 1 && !entry.requeued && !requeuedRef.current.has(item.cardId)) {
-      requeuedRef.current.add(item.cardId);
-      setQueue((q) => {
-        const insertAt = Math.min(q.length, idx + 4);
-        const copy = [...q];
-        copy.splice(insertAt, 0, { item, requeued: true });
-        return copy;
-      });
-    }
+    if (rating === 1) retryLater(entry);
     advance();
     gradeCard(item.cardId, rating, d)
       .then(applyResult)
@@ -130,11 +154,13 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
   };
 
   const handlePractice = (
-    kind: "wordbank" | "listening",
+    entry: QueueEntry,
+    kind: PracticeKind,
     id: string,
     correct: boolean,
   ) => {
     const d = duration();
+    if (!correct && kind === "drill") retryLater(entry);
     advance();
     logPractice(kind, id, correct, d)
       .then(applyResult)
@@ -158,7 +184,11 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
     return (
       <div className="flex min-h-[70dvh] flex-col justify-center text-center">
         <p className="text-5xl">🌍</p>
-        <h1 className="mt-4 text-3xl font-black text-ink">Today&apos;s session</h1>
+        <h1 className="mt-4 text-3xl font-black text-ink">
+          {plan.meta.newToday > 0 || plan.meta.minutesToday > 0
+            ? "Next round"
+            : "Today\u2019s first round"}
+        </h1>
         <p className="mt-2 text-sm text-muted">
           Unit: <span className="font-semibold text-ink">{plan.meta.unitTitle}</span>
         </p>
@@ -169,17 +199,31 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
           </div>
           <div className="rounded-xl border border-border bg-surface px-5 py-3">
             <p className="text-2xl font-black text-leaf">{plan.meta.newCount}</p>
-            <p className="text-xs text-muted">new cards</p>
+            <p className="text-xs text-muted">new words</p>
           </div>
           <div className="rounded-xl border border-border bg-surface px-5 py-3">
             <p className="text-2xl font-black text-flame">{streak}</p>
             <p className="text-xs text-muted">day streak</p>
           </div>
         </div>
+        <p className="mx-auto mt-4 max-w-xs text-sm leading-relaxed text-muted">
+          {plan.meta.newOnHold
+            ? "No new words this round — let\u2019s clear your reviews first so nothing piles up."
+            : plan.meta.newCount > 0
+              ? "A few minutes. New words are shown to you first, then asked — you can\u2019t fail a word you haven\u2019t been taught."
+              : "A short round to keep what you know fresh."}
+        </p>
+        {tts.ready && tts.available && tts.approximate && (
+          <p className="mx-auto mt-3 max-w-xs text-xs text-faint">
+            This device has no Afrikaans voice, so a Dutch one reads the
+            words — close, but not perfect. Trust the pronunciation hints.
+          </p>
+        )}
         {tts.ready && !tts.available && speechItems > 0 && (
           <p className="mx-auto mt-4 max-w-xs text-xs text-faint">
-            No Afrikaans voice on this device — listening &amp; shadowing are
-            skipped. On Android Chrome you get the full experience.
+            No Afrikaans or Dutch voice on this device — listening &amp;
+            shadowing are skipped. On Android Chrome you get the full
+            experience.
           </p>
         )}
         <div className="mx-auto mt-8 w-full max-w-xs">
@@ -197,6 +241,12 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
   }
 
   // ---------- done ----------
+  const hasMore = plan.meta.dueRemaining > 0 || plan.meta.moreNewAvailable;
+  const nextRound = (extra: number) => {
+    const q = new URLSearchParams({ r: String(Date.now()) });
+    if (extra > 0) q.set("extra", String(extra));
+    router.push(`/session?${q}`);
+  };
   if (finished) {
     return (
       <div className="flex min-h-[70dvh] flex-col justify-center text-center">
@@ -214,18 +264,56 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
             <p className="text-xs text-muted">day streak</p>
           </div>
         </div>
+        {plan.meta.newCount > 0 && (
+          <p className="mt-4 text-sm font-semibold text-ink">
+            {plan.meta.newCount} new word{plan.meta.newCount === 1 ? "" : "s"}{" "}
+            learned — {plan.meta.newToday + plan.meta.newCount} today.
+          </p>
+        )}
         {goalMet && (
-          <p className="mt-4 text-sm font-semibold text-leaf">
+          <p className="mt-2 text-sm font-semibold text-leaf">
             🎯 Daily goal reached — consistency is the whole game.
           </p>
         )}
         <div className="mx-auto mt-8 flex w-full max-w-xs flex-col gap-2">
-          <Link
-            href="/"
-            className="w-full rounded-2xl bg-gold px-6 py-4 text-lg font-black text-bg active:scale-[0.98]"
-          >
-            Back home
-          </Link>
+          {hasMore ? (
+            <>
+              <button
+                type="button"
+                onClick={() => nextRound(extraNew)}
+                className="w-full rounded-2xl bg-gold px-6 py-4 text-lg font-black text-bg active:scale-[0.98]"
+              >
+                Keep going
+              </button>
+              <p className="text-xs text-muted">
+                {plan.meta.dueRemaining > 0 &&
+                  `${plan.meta.dueRemaining} review${plan.meta.dueRemaining === 1 ? "" : "s"} waiting`}
+                {plan.meta.dueRemaining > 0 && plan.meta.moreNewAvailable && " · "}
+                {plan.meta.moreNewAvailable && "more new words ready"}
+              </p>
+              <Link href="/" className="mt-1 py-2 text-sm font-semibold text-muted">
+                Done for now
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/"
+                className="w-full rounded-2xl bg-gold px-6 py-4 text-lg font-black text-bg active:scale-[0.98]"
+              >
+                Back home
+              </Link>
+              {!plan.meta.newOnHold && (
+                <button
+                  type="button"
+                  onClick={() => nextRound(extraNew + MORE_WORDS_STEP)}
+                  className="py-2 text-sm font-semibold text-sky"
+                >
+                  Feeling good? Learn {MORE_WORDS_STEP} more words
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
     );
@@ -254,19 +342,54 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
       </div>
 
       <div className="relative flex-1">
-        <div key={`${idx}-${"cardId" in item ? item.cardId : item.kind}`} className="animate-pop-in flex min-h-full flex-col">
+        <div key={`${idx}-${entry.attempt}-${"cardId" in item ? item.cardId : item.kind}`} className="animate-pop-in flex min-h-full flex-col">
+          {item.kind === "intro" && (
+            <Intro
+              item={item}
+              tts={tts}
+              onDone={() => handlePractice(entry, "intro", item.id, true)}
+            />
+          )}
+          {item.kind === "drill" && (
+            <Choice
+              item={item}
+              tts={tts}
+              onResult={(ok) => handlePractice(entry, "drill", item.id, ok)}
+            />
+          )}
           {item.kind === "flashcard" && (
             <Flashcard item={item} tts={tts} onGrade={(r) => handleGrade(entry, r)} />
           )}
           {item.kind === "choice" && (
-            <Choice item={item} tts={tts} onGrade={(r) => handleGrade(entry, r)} />
+            <Choice
+              item={item}
+              tts={tts}
+              onResult={(ok) => handleGrade(entry, ok ? 3 : 1)}
+            />
           )}
-          {item.kind === "type" && (
-            <TypeAnswer item={item} tts={tts} onGrade={(r) => handleGrade(entry, r)} />
-          )}
+          {item.kind === "type" &&
+            (item.tileSet ? (
+              <TilesAnswer
+                item={item}
+                tts={tts}
+                onResult={(ok) => handleGrade(entry, ok ? 3 : 1)}
+              />
+            ) : (
+              <TypeAnswer item={item} tts={tts} onGrade={(r) => handleGrade(entry, r)} />
+            ))}
           {item.kind === "cloze" &&
             (item.options ? (
-              <ClozeChoice item={item} tts={tts} onGrade={(r) => handleGrade(entry, r)} />
+              <ClozeChoice
+                item={item}
+                tts={tts}
+                onResult={(ok) => handleGrade(entry, ok ? 3 : 1)}
+              />
+            ) : item.tileSet ? (
+              <TilesAnswer
+                item={item}
+                tts={tts}
+                onResult={(ok) => handleGrade(entry, ok ? 3 : 1)}
+              />
             ) : (
               <TypeAnswer item={item} tts={tts} onGrade={(r) => handleGrade(entry, r)} />
             ))}
@@ -274,14 +397,21 @@ export default function SessionPlayer({ plan }: { plan: SessionPlan }) {
             <WordBank
               item={item}
               tts={tts}
-              onDone={(correct) => handlePractice("wordbank", item.id, correct)}
+              onDone={(correct) => handlePractice(entry, "wordbank", item.id, correct)}
             />
           )}
           {item.kind === "listening" && (
             <Listening
               item={item}
               tts={tts}
-              onDone={(correct) => handlePractice("listening", item.id, correct)}
+              onDone={(correct) => handlePractice(entry, "listening", item.id, correct)}
+            />
+          )}
+          {item.kind === "dictation" && (
+            <Dictation
+              item={item}
+              tts={tts}
+              onDone={(correct) => handlePractice(entry, "listening", item.id, correct)}
             />
           )}
           {item.kind === "grammar" && (

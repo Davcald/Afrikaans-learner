@@ -30,7 +30,7 @@ export default async function LibraryPage() {
       <header className="pt-2">
         <h1 className="text-2xl font-black text-ink">Course units</h1>
         <p className="mt-1 text-sm text-muted">
-          16 weeks, beginner to conversational. Units unlock as you learn.
+          Beginner to confident, one unit at a time. Units unlock as you learn.
         </p>
       </header>
 

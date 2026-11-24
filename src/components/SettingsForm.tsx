@@ -70,7 +70,7 @@ export default function SettingsForm({
 
       <div>
         <label htmlFor="dailyNewCards" className={labelCls}>
-          New cards per day
+          New words per day
         </label>
         <select
           id="dailyNewCards"
@@ -80,13 +80,14 @@ export default function SettingsForm({
         >
           {[5, 10, 15, 20, 25].map((n) => (
             <option key={n} value={n}>
-              {n} new cards
+              {n} new words
             </option>
           ))}
         </select>
         <p className="mt-1 text-xs text-faint">
-          Each new card adds ~10 future reviews. 10/day is the sweet spot;
-          drop it if reviews pile up.
+          New words pause on their own while more than 40 reviews are
+          waiting, so you can&apos;t bury yourself. 10/day reaches 1,000 words
+          in about 3 months.
         </p>
       </div>
 

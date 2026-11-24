@@ -117,49 +117,103 @@ export function cardDefById(cardId: string): ResolvedCardDef | null {
   return { cardId, kind: "cloze", itemId, unitId: ref.unitId, cloze: ref.item };
 }
 
+/** The slice of a stored card the introduction rules need. */
+export interface CardSnapshot {
+  /** ts-fsrs State: 0 New, 1 Learning, 2 Review, 3 Relearning. */
+  state: number;
+  stability: number;
+  reps: number;
+}
+
+const STATE_REVIEW = 2;
+/** A production card this stable (days) has earned its in-a-sentence card. */
+export const CLOZE_UNLOCK_STABILITY = 7;
+const PHRASE_EVERY = 5;
+
 /**
- * New cards eligible for introduction, in order. Words deepen before the
- * unit broadens: a word's production card (unlocked once its recognition
- * card has been graded) and its cloze card (once production has been
- * graded) come before brand-new recognition cards. `introduced` is the set
- * of cardIds that already have a DB row (rows are created on first grade).
+ * Brand-new words (recognition cards) not yet introduced, in teaching order:
+ * the unit's vocab in file order with one phrase woven in after every few
+ * words, so useful chunks arrive alongside the words instead of in a lump at
+ * the end. This is what the daily "new words" budget counts.
  */
-export function eligibleNewDefs(
+export function newWordDefs(
   unit: Unit,
   introduced: ReadonlySet<string>,
-  grammarDone = false,
 ): CardDef[] {
-  const children: CardDef[] = [];
-  const fresh: CardDef[] = [];
+  const out: CardDef[] = [];
+  let phraseIdx = 0;
+  const pushPhrase = () => {
+    const p = unit.phrases[phraseIdx++];
+    if (p) {
+      out.push({ cardId: `${p.id}-rec`, kind: "phrase-rec", itemId: p.id, unitId: unit.id });
+    }
+  };
+  unit.vocab.forEach((v, i) => {
+    out.push({ cardId: `${v.id}-rec`, kind: "vocab-rec", itemId: v.id, unitId: unit.id });
+    if ((i + 1) % PHRASE_EVERY === 0) pushPhrase();
+  });
+  while (phraseIdx < unit.phrases.length) pushPhrase();
+  return out.filter((d) => !introduced.has(d.cardId));
+}
+
+/**
+ * Follow-up cards that deepen words already met. They never use up the
+ * new-word budget; each unlocks only once the step before it has stuck:
+ *  - production (say it in Afrikaans): the recognition card has graduated
+ *    to day-scale review
+ *  - vocab cloze (use it in a sentence): the production card is stable
+ *  - grammar cloze: the unit's grammar lesson has been read
+ */
+export function deepenDefs(
+  unit: Unit,
+  cards: ReadonlyMap<string, CardSnapshot>,
+  grammarDone: boolean,
+): CardDef[] {
+  const out: CardDef[] = [];
   for (const def of unitCardDefs(unit)) {
-    if (introduced.has(def.cardId)) continue;
+    if (cards.has(def.cardId)) continue;
     switch (def.kind) {
-      case "vocab-rec":
-      case "phrase-rec":
-        fresh.push(def);
-        break;
       case "vocab-prod":
-      case "phrase-prod":
-        if (introduced.has(`${def.itemId}-rec`)) children.push(def);
+      case "phrase-prod": {
+        const rec = cards.get(`${def.itemId}-rec`);
+        if (rec && rec.state === STATE_REVIEW) out.push(def);
         break;
-      case "vocab-cloze":
-        if (introduced.has(`${def.itemId}-prod`)) children.push(def);
+      }
+      case "vocab-cloze": {
+        const prod = cards.get(`${def.itemId}-prod`);
+        if (
+          prod &&
+          prod.state === STATE_REVIEW &&
+          prod.stability >= CLOZE_UNLOCK_STABILITY
+        ) {
+          out.push(def);
+        }
         break;
+      }
       case "cloze":
-        // Grammar-exercise cards unlock once the lesson has been read.
-        if (grammarDone) children.push(def);
+        if (grammarDone) out.push(def);
+        break;
+      default:
         break;
     }
   }
-  return [...children, ...fresh];
+  return out;
 }
 
-/** Grammar-exercise cloze cards for a unit, introduced after the lesson is read. */
-export function grammarClozeDefs(
-  unit: Unit,
-  introduced: ReadonlySet<string>,
-): CardDef[] {
-  return unitCardDefs(unit).filter(
-    (d) => d.kind === "cloze" && !introduced.has(d.cardId),
+/**
+ * Once a learner can reliably PRODUCE a word, recognising it is a given, so
+ * its recognition card stops coming up. This roughly halves long-run review
+ * load without dropping anything the learner still needs to practise.
+ */
+export function isRetired(
+  row: { cardId: string },
+  rowById: ReadonlyMap<string, { state: number; stability: number }>,
+): boolean {
+  if (!row.cardId.endsWith("-rec")) return false;
+  const prod = rowById.get(`${row.cardId.slice(0, -4)}-prod`);
+  return Boolean(
+    prod &&
+      prod.state === STATE_REVIEW &&
+      prod.stability >= CLOZE_UNLOCK_STABILITY,
   );
 }

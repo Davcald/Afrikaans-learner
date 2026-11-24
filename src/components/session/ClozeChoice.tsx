@@ -9,11 +9,11 @@ import { PrimaryButton } from "./bits";
 export default function ClozeChoice({
   item,
   tts,
-  onGrade,
+  onResult,
 }: {
   item: ClozeItem;
   tts: Tts;
-  onGrade: (rating: 1 | 3) => void;
+  onResult: (correct: boolean) => void;
 }) {
   const [picked, setPicked] = useState<string | null>(null);
   const answered = picked !== null;
@@ -76,8 +76,8 @@ export default function ClozeChoice({
 
       {answered && (
         <div className="mt-4">
-          <PrimaryButton onClick={() => onGrade(correct ? 3 : 1)}>
-            Continue
+          <PrimaryButton onClick={() => onResult(correct)}>
+            {correct ? "Continue" : "Got it — ask me again soon"}
           </PrimaryButton>
         </div>
       )}

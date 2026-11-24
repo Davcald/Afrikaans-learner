@@ -3,7 +3,8 @@ import { test } from "node:test";
 import { units } from "../../content/registry";
 import {
   cardDefById,
-  eligibleNewDefs,
+  deepenDefs,
+  newWordDefs,
   unitCardDefs,
   unitRecDefs,
   vocabClozeText,
@@ -36,21 +37,45 @@ test("vocab cloze blanks the headword, preserving case", () => {
   assert.equal(cloze.answer, "Goeiemôre");
 });
 
-test("introduction gating: prod unlocks after rec, cloze after prod", () => {
-  const none = eligibleNewDefs(u01, new Set());
-  assert.ok(none.every((d) => d.kind === "vocab-rec" || d.kind === "phrase-rec"));
+test("new words: only recognition cards, phrases woven in, introduced skipped", () => {
+  const all = newWordDefs(u01, new Set());
+  assert.ok(all.every((d) => d.kind === "vocab-rec" || d.kind === "phrase-rec"));
+  assert.equal(all.length, u01.vocab.length + u01.phrases.length);
+  assert.equal(all[0].cardId, "u01-v001-rec");
+  assert.equal(all[5].kind, "phrase-rec"); // first phrase after five words
+  const rest = newWordDefs(u01, new Set(["u01-v001-rec"]));
+  assert.equal(rest[0].cardId, "u01-v002-rec");
+});
 
-  const withRec = eligibleNewDefs(u01, new Set(["u01-v001-rec"]));
-  assert.ok(withRec.some((d) => d.cardId === "u01-v001-prod"));
-  assert.ok(!withRec.some((d) => d.cardId === "u01-v001-cloze"));
-  // children come before brand-new recs
-  assert.equal(withRec[0].cardId, "u01-v001-prod");
+test("deepening: prod waits for a graduated rec, cloze for a stable prod", () => {
+  const learning = { state: 1, stability: 0.5, reps: 1 };
+  const review = { state: 2, stability: 3, reps: 2 };
+  const stable = { state: 2, stability: 12, reps: 4 };
 
-  const withProd = eligibleNewDefs(
-    u01,
-    new Set(["u01-v001-rec", "u01-v001-prod"]),
+  assert.equal(deepenDefs(u01, new Map(), false).length, 0);
+  assert.equal(
+    deepenDefs(u01, new Map([["u01-v001-rec", learning]]), false).length,
+    0,
   );
-  assert.equal(withProd[0].cardId, "u01-v001-cloze");
+  const afterRec = deepenDefs(u01, new Map([["u01-v001-rec", review]]), false);
+  assert.deepEqual(afterRec.map((d) => d.cardId), ["u01-v001-prod"]);
+
+  const youngProd = new Map([
+    ["u01-v001-rec", stable],
+    ["u01-v001-prod", review],
+  ]);
+  assert.equal(deepenDefs(u01, youngProd, false).length, 0);
+  const stableProd = new Map([
+    ["u01-v001-rec", stable],
+    ["u01-v001-prod", stable],
+  ]);
+  assert.deepEqual(
+    deepenDefs(u01, stableProd, false).map((d) => d.cardId),
+    ["u01-v001-cloze"],
+  );
+
+  const grammar = deepenDefs(u01, new Map(), true);
+  assert.ok(grammar.length > 0 && grammar.every((d) => d.kind === "cloze"));
 });
 
 test("rec defs preserve vocab order then phrases", () => {

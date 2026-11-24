@@ -60,7 +60,7 @@ export default async function DashboardPage() {
 
   const streakActiveToday = settings.lastActiveDate === today;
   const onPace = stats.wordsKnown + stats.wordsLearning >= stats.targetWordsByNow;
-  const week = Math.min(16, Math.floor(stats.daysSinceStart / 7) + 1);
+  const week = Math.floor(stats.daysSinceStart / 7) + 1;
 
   return (
     <div className="space-y-5">
@@ -71,7 +71,7 @@ export default async function DashboardPage() {
             <span className="text-gold">{stats.displayName}</span>
           </h1>
           <p className="mt-1 text-sm text-muted">
-            Week {week} of 16 · Level {stats.level} ·{" "}
+            Week {week} · Level {stats.level} ·{" "}
             <span className="font-semibold text-gold-bright">{stats.rank}</span>
           </p>
         </div>
@@ -137,7 +137,7 @@ export default async function DashboardPage() {
 
       <section className="rounded-2xl border border-border bg-surface p-4">
         <div className="flex items-baseline justify-between">
-          <h2 className="font-bold text-ink">Your 16-week trajectory</h2>
+          <h2 className="font-bold text-ink">Your progress</h2>
           <span
             className={`text-xs font-bold ${onPace ? "text-leaf" : "text-flame"}`}
           >
@@ -156,7 +156,7 @@ export default async function DashboardPage() {
           />
         </div>
         <p className="mt-1 text-[10px] text-faint">
-          Dotted line = 16-week plan · gold = you
+          Dotted line = 10 words a day · gold = you
         </p>
       </section>
 

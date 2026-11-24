@@ -1,7 +1,7 @@
 import type { TrajectoryPoint } from "@/lib/stats";
 
 /**
- * Words-learned trajectory vs the 16-week reference line. Pure inline SVG.
+ * Words-learned trajectory vs the ten-words-a-day reference line. Pure inline SVG.
  */
 export default function TrajectoryChart({
   trajectory,
@@ -30,9 +30,9 @@ export default function TrajectoryChart({
       viewBox={`0 0 ${w} ${h}`}
       className="h-24 w-full"
       role="img"
-      aria-label="Words learned versus the 16-week plan"
+      aria-label="Words learned versus ten words a day"
     >
-      {/* 16-week reference line */}
+      {/* reference line */}
       <line
         x1={x(0)}
         y1={y(0)}
