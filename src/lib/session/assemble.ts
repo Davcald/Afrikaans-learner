@@ -458,6 +458,11 @@ function buildWordBanks(
   });
 }
 
+/**
+ * Listening: hear a known word's example sentence, pick what the SENTENCE
+ * means. Options are other sentences' translations, never single-word
+ * meanings — the audio is a sentence, so the choices must be sentences too.
+ */
 function buildListening(
   unit: Unit,
   introduced: ReadonlySet<string>,
@@ -465,24 +470,23 @@ function buildListening(
 ): ListeningItem[] {
   const known = unit.vocab.filter((v) => introduced.has(`${v.id}-rec`));
   if (known.length < 4) return [];
-  const picked = shuffled(known, rand).slice(0, 1);
-  return picked.map((v) => {
-    const distractors = shuffled(
-      known.filter((x) => x.id !== v.id && x.en !== v.en),
-      rand,
-    )
-      .slice(0, 3)
-      .map((x) => x.en);
-    const options = shuffled([v.en, ...distractors], rand);
-    return {
+  const v = known[Math.floor(rand() * known.length)];
+  const pool = unit.vocab
+    .filter((x) => x.id !== v.id && x.exampleAf !== v.exampleAf)
+    .map((x) => x.exampleEn);
+  const distractors = pickDistinct(pool, [v.exampleEn], 3, rand);
+  if (distractors.length < 3) return [];
+  const options = shuffled([v.exampleEn, ...distractors], rand);
+  return [
+    {
       kind: "listening" as const,
       id: `ls-${v.id}`,
       ttsText: v.exampleAf,
       answerAf: v.exampleAf,
       options,
-      correct: options.indexOf(v.en),
-    };
-  });
+      correct: options.indexOf(v.exampleEn),
+    },
+  ];
 }
 
 /** Dictation from a known word's example sentence, decoys from the same unit. */

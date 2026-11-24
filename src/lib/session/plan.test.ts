@@ -6,6 +6,7 @@ import { test } from "node:test";
 import { createEmptyCard } from "ts-fsrs";
 import { fsrsCardToRowValues, rowToFsrsCard, type CardRow } from "../srs/mapping";
 import { SCHEDULER, type Grade } from "../srs/scheduler";
+import { units } from "../../content/registry";
 import { buildPlan, type PlanInput } from "./assemble";
 import type { ExerciseItem, SessionPlan } from "./types";
 
@@ -186,4 +187,29 @@ test("a big backlog pauses new words", () => {
   assert.equal(later.meta.dueCount, 20);
   assert.ok(later.meta.dueRemaining > 20);
   assert.ok(!later.items.some((i) => i.kind === "intro"));
+});
+
+test("listening questions offer sentence meanings that include the right one", () => {
+  const sim: Sim = { rows: new Map(), recentNew: [], progress: [] };
+  const rand = seeded(3);
+  const t0 = new Date("2026-01-01T08:00:00Z").getTime();
+  let checked = 0;
+  for (let day = 0; day < 20; day++) {
+    for (let r = 0; r < 3; r++) {
+      const now = new Date(t0 + day * DAY + r * 20 * 60 * 1000);
+      const p = plan(sim, now, r);
+      for (const item of p.items) {
+        if (item.kind !== "listening") continue;
+        checked++;
+        const right = item.options[item.correct];
+        assert.ok(right, "correct option exists");
+        assert.equal(new Set(item.options).size, item.options.length, "no duplicate options");
+        // the right answer translates the very sentence that is played
+        const v = units.flatMap((u) => u.vocab).find((x) => x.exampleAf === item.ttsText);
+        assert.ok(v && v.exampleEn === right, `wrong answer for "${item.ttsText}": ${right}`);
+      }
+      play(sim, p, now, 0.9, rand);
+    }
+  }
+  assert.ok(checked > 5, `only ${checked} listening items seen`);
 });
